@@ -1,0 +1,313 @@
+fileFormatVersion: 2
+guid: 8377e37414ee1554580a81549d8ae8a1
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: 009
+    100002: 010
+    100004: 2
+    100006: 7
+    100008: 8
+    100010: Box059
+    100012: Box078
+    100014: ducha
+    100016: ducha 1
+    100018: ducha 2
+    100020: //RootNode
+    100022: Line028
+    100024: Line029
+    100026: Line032
+    100028: Line034
+    100030: Line035
+    100032: Line036
+    100034: Line037
+    100036: Line038
+    100038: Line056
+    100040: Line062
+    100042: Line063
+    100044: morgue
+    100046: neveras 003
+    100048: neveras 1
+    100050: Object001
+    100052: Object002
+    100054: Object003
+    100056: Object004
+    100058: Object005
+    100060: Object006
+    100062: Object007
+    100064: Object008
+    100066: Object009
+    100068: Object010
+    100070: Object011
+    100072: Object012
+    100074: Object013
+    100076: Object014
+    100078: Object015
+    100080: Object016
+    100082: Object017
+    100084: Object018
+    100086: Object019
+    100088: Object020
+    100090: Object021
+    100092: Object022
+    100094: Object023
+    100096: Object024
+    100098: pared
+    100100: Particle View 001
+    100102: Particle View 002
+    100104: Particle View 003
+    100106: Plane001
+    100108: puertas
+    400000: 009
+    400002: 010
+    400004: 2
+    400006: 7
+    400008: 8
+    400010: Box059
+    400012: Box078
+    400014: ducha
+    400016: ducha 1
+    400018: ducha 2
+    400020: //RootNode
+    400022: Line028
+    400024: Line029
+    400026: Line032
+    400028: Line034
+    400030: Line035
+    400032: Line036
+    400034: Line037
+    400036: Line038
+    400038: Line056
+    400040: Line062
+    400042: Line063
+    400044: morgue
+    400046: neveras 003
+    400048: neveras 1
+    400050: Object001
+    400052: Object002
+    400054: Object003
+    400056: Object004
+    400058: Object005
+    400060: Object006
+    400062: Object007
+    400064: Object008
+    400066: Object009
+    400068: Object010
+    400070: Object011
+    400072: Object012
+    400074: Object013
+    400076: Object014
+    400078: Object015
+    400080: Object016
+    400082: Object017
+    400084: Object018
+    400086: Object019
+    400088: Object020
+    400090: Object021
+    400092: Object022
+    400094: Object023
+    400096: Object024
+    400098: pared
+    400100: Particle View 001
+    400102: Particle View 002
+    400104: Particle View 003
+    400106: Plane001
+    400108: puertas
+    2300000: 009
+    2300002: 010
+    2300004: 2
+    2300006: 7
+    2300008: 8
+    2300010: Box059
+    2300012: Box078
+    2300014: ducha
+    2300016: ducha 1
+    2300018: ducha 2
+    2300020: Line028
+    2300022: Line029
+    2300024: Line032
+    2300026: Line034
+    2300028: Line035
+    2300030: Line036
+    2300032: Line037
+    2300034: Line056
+    2300036: morgue
+    2300038: neveras 003
+    2300040: neveras 1
+    2300042: Object001
+    2300044: Object002
+    2300046: Object003
+    2300048: Object004
+    2300050: Object005
+    2300052: Object006
+    2300054: Object007
+    2300056: Object008
+    2300058: Object009
+    2300060: Object010
+    2300062: Object011
+    2300064: Object012
+    2300066: Object013
+    2300068: Object014
+    2300070: Object015
+    2300072: Object016
+    2300074: Object017
+    2300076: Object018
+    2300078: Object019
+    2300080: Object020
+    2300082: Object021
+    2300084: Object022
+    2300086: Object023
+    2300088: Object024
+    2300090: pared
+    2300092: Plane001
+    2300094: puertas
+    3300000: 009
+    3300002: 010
+    3300004: 2
+    3300006: 7
+    3300008: 8
+    3300010: Box059
+    3300012: Box078
+    3300014: ducha
+    3300016: ducha 1
+    3300018: ducha 2
+    3300020: Line028
+    3300022: Line029
+    3300024: Line032
+    3300026: Line034
+    3300028: Line035
+    3300030: Line036
+    3300032: Line037
+    3300034: Line056
+    3300036: morgue
+    3300038: neveras 003
+    3300040: neveras 1
+    3300042: Object001
+    3300044: Object002
+    3300046: Object003
+    3300048: Object004
+    3300050: Object005
+    3300052: Object006
+    3300054: Object007
+    3300056: Object008
+    3300058: Object009
+    3300060: Object010
+    3300062: Object011
+    3300064: Object012
+    3300066: Object013
+    3300068: Object014
+    3300070: Object015
+    3300072: Object016
+    3300074: Object017
+    3300076: Object018
+    3300078: Object019
+    3300080: Object020
+    3300082: Object021
+    3300084: Object022
+    3300086: Object023
+    3300088: Object024
+    3300090: pared
+    3300092: Plane001
+    3300094: puertas
+    4300000: Line028
+    4300002: Line029
+    4300004: Line032
+    4300006: Box059
+    4300008: Line034
+    4300010: Box078
+    4300012: Line035
+    4300014: Line036
+    4300016: Line037
+    4300018: 8
+    4300020: 2
+    4300022: Line056
+    4300024: 7
+    4300026: Plane001
+    4300028: ducha
+    4300030: morgue
+    4300032: pared
+    4300034: puertas
+    4300036: 009
+    4300038: 010
+    4300040: neveras 1
+    4300042: Object001
+    4300044: Object002
+    4300046: Object003
+    4300048: Object004
+    4300050: Object005
+    4300052: Object006
+    4300054: Object007
+    4300056: Object008
+    4300058: Object009
+    4300060: Object010
+    4300062: Object011
+    4300064: Object012
+    4300066: Object013
+    4300068: Object014
+    4300070: Object015
+    4300072: Object016
+    4300074: Object017
+    4300076: Object018
+    4300078: Object019
+    4300080: Object020
+    4300082: Object021
+    4300084: Object022
+    4300086: Object023
+    4300088: Object024
+    4300090: neveras 003
+    4300092: ducha
+    4300094: ducha
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 

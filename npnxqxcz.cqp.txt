@@ -1,0 +1,50 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   Assembly-CSharp-Editor-vs.csproj
+#	modified:   Assembly-CSharp-Editor.csproj
+#	modified:   Assembly-CSharp-firstpass-vs.csproj
+#	modified:   Assembly-CSharp-firstpass.csproj
+#	modified:   Assembly-CSharp-vs.csproj
+#	modified:   Assembly-CSharp.csproj
+#	modified:   Assembly-UnityScript-firstpass-vs.unityproj
+#	modified:   Assembly-UnityScript-firstpass.unityproj
+#	modified:   Assembly-UnityScript-vs.unityproj
+#	modified:   Assembly-UnityScript.unityproj
+#	modified:   Assets/Escenas/Nivel1-5.unity
+#	new file:   Assets/Escenas/Nivel2.unity
+#	renamed:    Assets/Escenas/Nivel2A.unity.meta -> Assets/Escenas/Nivel2.unity.meta
+#	deleted:    Assets/Escenas/Nivel2A.unity
+#	new file:   Assets/Resources/Modelos/Escenarios/espacio nivel 2C.FBX
+#	new file:   Assets/Resources/Modelos/Escenarios/espacio nivel 2C.FBX.meta
+#	new file:   Assets/Scripts/Managers/Dialogos.meta
+#	renamed:    Assets/Scripts/Managers/ManagerDialogos1.js -> Assets/Scripts/Managers/Dialogos/ManagerDialogos1.js
+#	renamed:    Assets/Scripts/Managers/ManagerDialogos1.js.meta -> Assets/Scripts/Managers/Dialogos/ManagerDialogos1.js.meta
+#	renamed:    Assets/Scripts/Managers/ManagerDialogos1_5C.js -> Assets/Scripts/Managers/Dialogos/ManagerDialogos1_5.js
+#	renamed:    Assets/Scripts/Managers/ManagerDialogos1_5C.js.meta -> Assets/Scripts/Managers/Dialogos/ManagerDialogos1_5.js.meta
+#	renamed:    Assets/Scripts/Inventario/Inventario.js -> Assets/Scripts/Managers/Inventario.js
+#	renamed:    Assets/Scripts/Inventario/Inventario.js.meta -> Assets/Scripts/Managers/Inventario.js.meta
+#	new file:   Assets/Scripts/Managers/LevelManager.meta
+#	renamed:    Assets/Scripts/Managers/Manager1.js -> Assets/Scripts/Managers/LevelManager/Manager1.js
+#	renamed:    Assets/Scripts/Managers/Manager1.js.meta -> Assets/Scripts/Managers/LevelManager/Manager1.js.meta
+#	new file:   Assets/Scripts/Managers/LevelManager/Manager1_5.js
+#	renamed:    Assets/Scripts/Managers/Manager1_5C.js.meta -> Assets/Scripts/Managers/LevelManager/Manager1_5.js.meta
+#	new file:   Assets/Scripts/Managers/LevelManager/Manager2.js
+#	new file:   Assets/Scripts/Managers/LevelManager/Manager2.js.meta
+#	renamed:    Assets/Scripts/Inventario/LootManager1_5.js -> Assets/Scripts/Managers/LootManager1_5.js
+#	renamed:    Assets/Scripts/Inventario/LootManager1_5.js.meta -> Assets/Scripts/Managers/LootManager1_5.js.meta
+#	deleted:    Assets/Scripts/Managers/Manager1_5C.js
+#	modified:   Assets/Scripts/Managers/Player_Manager.js
+#	new file:   Assets/Scripts/Persistance.js
+#	new file:   Assets/Scripts/Persistance.js.meta
+#	modified:   AtrapadosGameC-csharp.sln
+#	modified:   AtrapadosGameC.sln
+#	modified:   AtrapadosGameC.userprefs
+#	modified:   Library/InspectorExpandedItems.asset
+#	modified:   ProjectSettings/EditorBuildSettings.asset
+#
+
