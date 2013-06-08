@@ -26,6 +26,7 @@ public static final var DIANA : int = 2;
 public static final var FABIO : int = 3;
 public static final var MARIO : int = 4;
 public static final var FRANCISCO : int = 5;
+public static final var GABRIELA : int = 6;
 
 // ================================================================================
 // OnGUI
