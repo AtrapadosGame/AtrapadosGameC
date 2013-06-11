@@ -15,7 +15,6 @@ var texturaBotiquin: Texture2D;
 var texturaToalla: Texture2D;
 
 function inicializarTest(){
-
 inventario = new Item[4];
 party = new Player[4];
 //Se inicializa el nivel con diana y dario
@@ -25,8 +24,6 @@ party[0] = new Player(texturaCuadroCristina, 0,"Cristina", texturaCursorCristina
 inventario[0]  = new Item(texturaPala,0,"Pala");
 inventario[1]  = new Item(texturaBotiquin,1,"Botiquin");
 inventario[2] = new Item(texturaToalla,2,"Toalla");
-
-
 }
 // ================================================================================
 // Variables
@@ -41,7 +38,6 @@ private var party: Player[];
 
 function Awake () {
 DontDestroyOnLoad (transform.gameObject);
-
 //testing purpose
 inicializarTest();
 }
@@ -59,8 +55,6 @@ party =players;
 // ================================================================================
 // Getters y Setters
 // ================================================================================
-
-
 function getInventario(){
 return inventario;
 
@@ -69,5 +63,3 @@ return inventario;
 function getParty(){
 return party;
 }
-
-
