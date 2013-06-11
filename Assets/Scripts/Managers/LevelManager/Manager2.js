@@ -21,6 +21,7 @@ var texturaCuadroGabriela : Texture2D;
 //FLAGS
 private var flagConserje : boolean = false;
 private var flagFCuerpo : boolean = false;
+private var flagEncontrarCuerpoF1 : boolean = false;
 private var desinfectado : boolean = false;
 private var cinematica1 : boolean = false;
 
@@ -56,6 +57,7 @@ function OnGUI(){
 
 //Implementación de la función Trigger()
 function EventTrigger(objName : String){
+	currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
 	if(objName.Equals("PuertaEntrada1")){
 		var puertaA : GameObject = GameObject.Find("PuertaCorrediza1");
 		//puertaA.GetComponent(TrasladarVertical).setVelocidad(0.11);
@@ -152,6 +154,7 @@ function EventTrigger(objName : String){
 
 //Imlementación de la funcion Switch()
 function EventSwitch(comando : String){
+	currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
 	//Hablar a gabriela apenas empieza el nivel
 	if(comando.Equals("Gabriela")){
 	
@@ -164,23 +167,32 @@ function EventSwitch(comando : String){
 	}
 	//Fantasma buscando su cuerpo en la morgue 1
 	if(comando.Equals("F1")){
-		if(currentPlayer.getId() == Player_Manager.CRISTINA){
-			if(flagConserje)
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F1);
-			else
-				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);
+		if(!flagEncontrarCuerpoF1){
+			if(currentPlayer.getId() == Player_Manager.CRISTINA){
+				if(flagConserje)
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F1);
+				else
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);
+			}
+			else{
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematica1 = true;
+				yield WaitForSeconds(5);
+				cinematica1 = false;
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+			}
 		}
 		else{
-			currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
-			cinematica1 = true;
-			yield WaitForSeconds(5);
-			cinematica1 = false;
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F1AYUDAR);
+			GameObject.Find("F1").renderer.enabled = false;
+			GameObject.Find("F1").collider.enabled = false;
 		}	
 	}
 	//Locker donde está el cuerpo del fantasma F1
 	if(comando.Equals("LockerF1")){
 		if(flagFCuerpo){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_LOCKERF1);
+			flagEncontrarCuerpoF1 = true;
 			}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_VACIO);

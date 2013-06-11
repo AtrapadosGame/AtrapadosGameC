@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\LevelManager\Manager2.js">
     <Files>
-      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="156" Column="17" />
-      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="46" Column="58" />
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="170" Column="30" />
       <File FileName="Assets\Scripts\Managers\LevelManager\Manager1.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="409" Column="75" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

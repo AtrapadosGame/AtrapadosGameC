@@ -18,7 +18,7 @@ function inicializarTest(){
 inventario = new Item[4];
 party = new Player[4];
 //Se inicializa el nivel con diana y dario
-party[0] = new Player(texturaCuadroCristina, 0,"Cristina", texturaCursorCristina );
+party[0] = new Player(texturaCuadroCristina, Player_Manager.CRISTINA,"Cristina", texturaCursorCristina );
 
 
 inventario[0]  = new Item(texturaPala,0,"Pala");

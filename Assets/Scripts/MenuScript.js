@@ -89,7 +89,6 @@ GUI.skin = customSkin;
     }
     function ButtonOnMouseOut () {
     if(!pausa){
-    print("pausa" + pausa);
         GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
         }
     }

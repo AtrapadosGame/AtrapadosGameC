@@ -20,13 +20,13 @@ var puedeCambiarPj: boolean = true;
 
 
 
-public static final var DARIO : int = 0;
-public static final var CRISTINA : int = 1;
-public static final var DIANA : int = 2;
-public static final var FABIO : int = 3;
-public static final var MARIO : int = 4;
-public static final var FRANCISCO : int = 5;
-public static final var GABRIELA : int = 6;
+public static final var DARIO : int = 1;
+public static final var CRISTINA : int = 2;
+public static final var DIANA : int = 3;
+public static final var FABIO : int = 4;
+public static final var MARIO : int = 5;
+public static final var FRANCISCO : int = 6;
+public static final var GABRIELA : int = 7;
 
 // ================================================================================
 // OnGUI
@@ -71,7 +71,6 @@ if (Event.current.type == EventType.Repaint && GUI.tooltip != lastTooltip)
 
 
 function Start () {
-print("start player manager");
 ancho = (Screen.width/8) - 50;
 	alto = Screen.height/8;
 	separacion = 3;
@@ -81,7 +80,7 @@ ancho = (Screen.width/8) - 50;
 }
 
 function cambiarPj(id : int){
-	print("esta cambiando de pj");
+	print("esta cambiando de pj al ID: " + id);
 		var posActual = currentGO.transform.position;
 		var rotActual = currentGO.transform.rotation;
 		currentGO.renderer.enabled = false;

@@ -7,6 +7,7 @@ private var conversacionGabriela : ArbolConversacion;
 private var conversacionConserje : ArbolConversacion;
 private var conversacionSinConserje : ArbolConversacion;
 private var conversacionF1 : ArbolConversacion;
+private var conversacionF1Ayudar : ArbolConversacion;
 private var conversacionLockerF1 : ArbolConversacion;
 private var conversacionLockerVacio : ArbolConversacion;
 private var conversacionSinDesinfectar : ArbolConversacion;
@@ -44,6 +45,7 @@ public static final var CONVERSACION_F1  :int= 3;
 public static final var CONVERSACION_LOCKERF1  :int= 4;
 public static final var CONVERSACION_VACIO  :int= 5;
 public static final var CONVERSACION_DESINFECTAR  :int= 6;
+public static final var CONVERSACION_F1AYUDAR  :int= 7;
 
 public static final var GABRIELA = 1;
 public static final var CONSERJE = 2;
@@ -61,6 +63,7 @@ function Start(){
  inicializarConversacionConserje();
  inicializarConversacionF1();
  inicializarConversacionLockerF1();
+ inicializarConversacionF1Ayudar();
 }
 
 
@@ -88,7 +91,7 @@ function WindowFunction (windowID : int) {
 	
 	
 	if(GUI.Button(Rect (10, 20, ventana.width, 75), textoOpcion1)){
-	print("Escogio Opcion 1:");
+	
 	conversacionActual.setNodoActual(conversacionActual.getNodoActual().getHijo1());
 	dibujarDialogo();
 	enOpcion = false;
@@ -97,7 +100,7 @@ function WindowFunction (windowID : int) {
 	
 	}
 	if(GUI.Button(Rect (10, 95, ventana.width, 75), textoOpcion2)){
-		print("Escogio Opcion 2:");
+		
 	conversacionActual.setNodoActual(conversacionActual.getNodoActual().getHijo2());
 	dibujarDialogo();
 	enOpcion = false;
@@ -107,7 +110,7 @@ function WindowFunction (windowID : int) {
 	if(conversacionActual.getNodoActual().getHijo3()){
 	
 	if(GUI.Button(Rect (10, 170, ventana.width, 75), textoOpcion3)){
-		print("Escogio Opcion 2:");
+		
 	conversacionActual.setNodoActual(conversacionActual.getNodoActual().getHijo3());
 	dibujarDialogo();
 	enOpcion = false;
@@ -134,27 +137,27 @@ var pausa : boolean = GetComponent(MenuScript).estaPausado();
 if(!pausa){
 if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
-	print("OnMouseDown");
+	
 		
-	print("Tiene hijos?: " +conversacionActual.getNodoActual().tieneHijos());
+	
 	
 	if(!conversacionActual.getNodoActual().estaTerminado()){
-	print("Dialogo:");
+	
 		dibujarDialogo();
 	}
 	else if(conversacionActual.getNodoActual().estaTerminado()&&conversacionActual.getNodoActual().tieneHijos()){
-		print("Opciones:");
+		
 		enOpcion = true;
 		dibujarOpcion();
 	}
 	//Aqui se acaba la conversación
 	else if(conversacionActual.getNodoActual().estaTerminado() && !conversacionActual.getNodoActual().tieneHijos()){
-		print("Fin dialogo");
+		
 		dialogosActivos = false;
 		GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 		
 		manager.GetComponent(IEvent_manager).DialogSwitch(conversacionActual.getResultado());
-		print(conversacionActual.getResultado());
+		
 	}
 }
 
@@ -168,7 +171,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
 
 function empezarDialogos(idConversacion:int ){
-print("empezarDialogos");
+
 
 switch(idConversacion){
 
@@ -193,6 +196,11 @@ break;
 case CONVERSACION_F1:
 
 conversacionActual = conversacionF1;
+
+break;
+
+case CONVERSACION_F1AYUDAR:
+conversacionActual = conversacionF1Ayudar;
 
 break;
 
@@ -387,4 +395,21 @@ dialogos.Push(l);
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 conversacionSinDesinfectar.setRaiz(nodoRaiz);
+}
+
+//Terminar la mision de F1
+function inicializarConversacionF1Ayudar(){
+conversacionF1Ayudar = new ArbolConversacion(texturaCristina,texturaF1,texturaCristinaSombreada,texturaF1Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF1Ayudar.setRaiz(nodoRaiz);
 }
