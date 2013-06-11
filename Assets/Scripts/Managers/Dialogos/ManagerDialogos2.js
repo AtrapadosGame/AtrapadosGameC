@@ -9,6 +9,7 @@ private var conversacionSinConserje : ArbolConversacion;
 private var conversacionF1 : ArbolConversacion;
 private var conversacionLockerF1 : ArbolConversacion;
 private var conversacionLockerVacio : ArbolConversacion;
+private var conversacionSinDesinfectar : ArbolConversacion;
 
 private var ventana : Rect = Rect(0,(Screen.height/2)+50, Screen.width,(Screen.height/3));
 private var textoActivo: String;
@@ -42,6 +43,7 @@ public static final var CONVERSACION_SIN  :int= 2;
 public static final var CONVERSACION_F1  :int= 3;
 public static final var CONVERSACION_LOCKERF1  :int= 4;
 public static final var CONVERSACION_VACIO  :int= 5;
+public static final var CONVERSACION_DESINFECTAR  :int= 6;
 
 public static final var GABRIELA = 1;
 public static final var CONSERJE = 2;
@@ -205,6 +207,12 @@ inicializarConversacionLockerVacio();
 conversacionActual = conversacionLockerVacio;
 
 break;
+
+case CONVERSACION_DESINFECTAR:
+inicializarConversacionSinDesinfectar();
+conversacionActual = conversacionSinDesinfectar;
+
+break;
 }
 
 GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
@@ -362,4 +370,21 @@ dialogos.Push(l);
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 conversacionLockerVacio.setRaiz(nodoRaiz);
+}
+
+//Click a una puerta sin desinfectarse
+function inicializarConversacionSinDesinfectar(){
+conversacionSinDesinfectar = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Al parecer primero necesitas desinfectarte en una estación",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionSinDesinfectar.setRaiz(nodoRaiz);
 }

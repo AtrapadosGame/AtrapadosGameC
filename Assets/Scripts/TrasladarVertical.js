@@ -4,7 +4,7 @@ private var mover : boolean = false;
 
 function Update () {
 	if(mover)
-		transform.position.x += vel;
+		transform.position.z += vel;
 }
 
 function activar(){

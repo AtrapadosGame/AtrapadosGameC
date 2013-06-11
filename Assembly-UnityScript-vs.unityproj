@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\Player.js" />
      <Compile Include="Assets\Scripts\Timer.js" />
      <Compile Include="Assets\Scripts\TrasladarHorizontal.js" />
+     <Compile Include="Assets\Scripts\TrasladarVertical.js" />
      <Compile Include="Assets\Scripts\Unity Scripts\Mouse\MouseOrbit(unused).js" />
      <Compile Include="Assets\Scripts\Unity Scripts\Mouse\SmoothFollow.js" />
      <Compile Include="Assets\Scripts\Unity Scripts\Mouse\SmoothLookAt(Unused).js" />
