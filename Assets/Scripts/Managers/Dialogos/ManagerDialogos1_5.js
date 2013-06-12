@@ -88,7 +88,7 @@ function Start(){
 // ================================================================================
 
 function OnGUI () {
-var pausa : boolean = GetComponent(MenuScript).estaPausado();
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
 if(!pausa){
 GUI.skin = customSkin;
 	if(dialogosActivos){
@@ -149,7 +149,7 @@ function WindowFunction (windowID : int) {
 // OnMouseDown
 // ================================================================================
 function Update(){
-var pausa : boolean = GetComponent(MenuScript).estaPausado();
+var pausa : boolean = GetComponent(MenuManager).estaPausado();
 if(!pausa){
 if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
@@ -169,6 +169,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 	else if(conversacionActual.getNodoActual().estaTerminado() && !conversacionActual.getNodoActual().tieneHijos()){
 		print("Fin dialogo");
 		dialogosActivos = false;
+		GetComponent(MenuManager).setBotonesHabilitado(true);
 		GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 		manager.GetComponent(IEvent_manager).DialogSwitch(conversacionActual.getResultado());
 		
@@ -185,6 +186,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
 
 function empezarDialogos(idConversacion:int ){
+GetComponent(MenuManager).setBotonesHabilitado(false);
 print("empezarDialogos");
 
 switch(idConversacion){

@@ -2,13 +2,20 @@
 
 private var currentPlayer : Player;
 
+// ================================================================================
+// Variables
+// ================================================================================
 //Variables para los managers
 private var managerDialogos: ManagerDialogos2;
 private var playerManager : Player_Manager;
 private var lootManager : LootManager2;
 private var persistance : Persistance;
-private var inventario : Inventario;
+private var inventario : InventarioManager;
+private var puzzle : Puzzle;
 
+// ================================================================================
+// Texturas
+// ================================================================================
 //Texturas
 var cinematicas : Texture2D[] = new Texture2D[5];
 
@@ -19,6 +26,9 @@ var texturaCuadroCristina : Texture2D;
 var texturaCuadroGabriela : Texture2D;
 var texturaPalanca : Texture2D;
 
+// ================================================================================
+// FLAGS
+// ================================================================================
 //FLAGS
 private var flagConserje : boolean = false;// Hablar con el conserje por primera vez
 private var flagFCuerpo : boolean = false;// Hablar con el fantasma F1 (En la primera morgue)
@@ -30,7 +40,9 @@ private var cinematica1 : boolean = false;// Cinemática del fantasma F1
 private var cinematica2 : boolean = false;// Cinemática del fantasma F2
 private var cinematica3 : boolean = false;// Abrir el locker con una palanca
 
-
+// ================================================================================
+// Awake
+// ================================================================================
 function Awake () {
 
 
@@ -38,10 +50,10 @@ function Awake () {
 playerManager = GetComponent(Player_Manager);
 managerDialogos = GetComponent(ManagerDialogos2);
 lootManager = GetComponent(LootManager2);
-inventario = GetComponent(Inventario);
+inventario = GetComponent(InventarioManager);
 persistance = GameObject.Find("Persistance").GetComponent(Persistance);
 
-
+puzzle = GetComponent(Puzzle);
 inventario.setItemsActuales(persistance.getInventario());
 
 var tempPlayers: Player[] = persistance.getParty();
@@ -54,7 +66,10 @@ for(var i:int = 0 ; i <tempPlayers.Length ; i++){
 currentPlayer = tempPlayers[0];
 }
 
-//Funcion OnGUI
+// ================================================================================
+// OnGUI
+// ================================================================================
+
 function OnGUI(){
 	if(cinematica1){
 		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[0]);
@@ -67,6 +82,9 @@ function OnGUI(){
 	}
 }
 
+// ================================================================================
+// Trigger
+// ================================================================================
 //Implementación de la función Trigger()
 function EventTrigger(objName : String){
 	currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
@@ -163,7 +181,9 @@ function EventTrigger(objName : String){
 		desinfectado = false;
 	}
 }
-
+// ================================================================================
+// Switch
+// ================================================================================
 //Imlementación de la funcion Switch()
 function EventSwitch(comando : String){
 	currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
@@ -171,6 +191,12 @@ function EventSwitch(comando : String){
 	if(comando.Equals("Gabriela")){
 	
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_GABRIELA);
+	}
+	if(comando.Equals("Puzzle")){
+	
+	print("esta entrando al puzzle");
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		puzzle.empezarPuzzle();
 	}
 	//Hablar con el conserje
 	if(comando.Equals("Conserje")){
@@ -239,8 +265,8 @@ function EventSwitch(comando : String){
 	//Locker trabado donde está el cuerpo del fantasma F2
 	if(comando.Equals("LockerF2")){
 		if(flagFTrabado){
-			var pala : boolean = GetComponent(Inventario).enInventario(GetComponent(Inventario).OBJETO_PALA);
-			var palanca : boolean = GetComponent(Inventario).enInventario(GetComponent(Inventario).OBJETO_PALANCA);
+			var pala : boolean =inventario.enInventario(InventarioManager.PALA);
+			var palanca : boolean = inventario.enInventario(InventarioManager.PALANCA);
 			if(pala || palanca){
 				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
 				cinematica3 = true;
@@ -262,7 +288,7 @@ function EventSwitch(comando : String){
 	}
 	if(comando.Equals("LockerPalanca")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_PALANCA);
-		GetComponent(Inventario).addItem(new Item(texturaPalanca, GetComponent(Inventario).OBJETO_PALANCA));
+		inventario.addItem(new Item(texturaPalanca, inventario.PALANCA));
 	}
 	//Puertas corrediza para entrar a las morgues
 	if(comando.Equals("Puerta1")){
@@ -326,7 +352,9 @@ function EventSwitch(comando : String){
 		desinfectado = true;
 	}	
 }
-
+// ================================================================================
+// Switch
+// ================================================================================
 //Se llama como resultado(al finalizar) de un dialogo, no todos los dialogos tiene resultado*
 //Implementación de la función IEventDialog
 function EventDialog(idResultado : int){

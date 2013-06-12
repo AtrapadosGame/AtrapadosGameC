@@ -11,7 +11,7 @@ private var managerDialogos: ManagerDialogos1_5;
 private var playerManager : Player_Manager;
 private var lootManager : LootManager1_5;
 private var persitance : Persistance;
-private var inventario : Inventario;
+private var inventario : InventarioManager;
 
 
 var cinematicas : Texture2D[] = new Texture2D[5];
@@ -45,7 +45,7 @@ function Awake () {
 playerManager = GetComponent(Player_Manager);
 managerDialogos = GetComponent(ManagerDialogos1_5);
 lootManager = GetComponent(LootManager1_5);
-inventario = GetComponent(Inventario);
+inventario = GetComponent(InventarioManager);
 persitance = GameObject.Find("Persistance").GetComponent(Persistance);
 playerManager.addPlayer(new Player(texturaCuadroCristina,Player_Manager.DARIO, "Cristina" , texturaCursorCristina));
 }
