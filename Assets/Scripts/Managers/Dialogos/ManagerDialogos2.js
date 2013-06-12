@@ -9,8 +9,12 @@ private var conversacionSinConserje : ArbolConversacion;
 private var conversacionF1 : ArbolConversacion;
 private var conversacionF1Ayudar : ArbolConversacion;
 private var conversacionLockerF1 : ArbolConversacion;
+private var conversacionF2 : ArbolConversacion;
+private var conversacionF2Ayudar : ArbolConversacion;
+private var conversacionLockerF2 : ArbolConversacion;
 private var conversacionLockerVacio : ArbolConversacion;
 private var conversacionSinDesinfectar : ArbolConversacion;
+private var conversacionPalanca : ArbolConversacion;
 
 private var ventana : Rect = Rect(0,(Screen.height/2)+50, Screen.width,(Screen.height/3));
 private var textoActivo: String;
@@ -31,11 +35,13 @@ var texturaCristina: Texture2D;
 var texturaGabriela: Texture2D;
 var texturaConserje: Texture2D;
 var texturaF1: Texture2D;
+var texturaF2: Texture2D;
 
 var texturaCristinaSombreada: Texture2D;
 var texturaGabrielaSombreada: Texture2D;
 var texturaConserjeSombreada: Texture2D;
 var texturaF1Sombreada: Texture2D;
+var texturaF2Sombreada: Texture2D;
 
 
 public static final var CONVERSACION_GABRIELA  :int= 0;
@@ -46,10 +52,15 @@ public static final var CONVERSACION_LOCKERF1  :int= 4;
 public static final var CONVERSACION_VACIO  :int= 5;
 public static final var CONVERSACION_DESINFECTAR  :int= 6;
 public static final var CONVERSACION_F1AYUDAR  :int= 7;
+public static final var CONVERSACION_F2  :int= 8;
+public static final var CONVERSACION_F2AYUDAR  :int= 9;
+public static final var CONVERSACION_LOCKERF2  :int= 10;
+public static final var CONVERSACION_PALANCA  :int= 11;
 
 public static final var GABRIELA = 1;
 public static final var CONSERJE = 2;
 public static final var FANTASMA1 = 3;
+public static final var FANTASMA2 = 4;
 
 
 
@@ -64,6 +75,9 @@ function Start(){
  inicializarConversacionF1();
  inicializarConversacionLockerF1();
  inicializarConversacionF1Ayudar();
+ inicializarConversacionF2();
+ inicializarConversacionF2Ayudar();
+ inicializarConversacionPalanca();
 }
 
 
@@ -210,6 +224,23 @@ conversacionActual = conversacionLockerF1;
 
 break;
 
+case CONVERSACION_F2:
+
+conversacionActual = conversacionF2;
+
+break;
+
+case CONVERSACION_F2AYUDAR:
+conversacionActual = conversacionF2Ayudar;
+
+break;
+
+case CONVERSACION_LOCKERF2:
+inicializarConversacionLockerF2();
+conversacionActual = conversacionLockerF2;
+
+break;
+
 case CONVERSACION_VACIO:
 inicializarConversacionLockerVacio();
 conversacionActual = conversacionLockerVacio;
@@ -219,6 +250,12 @@ break;
 case CONVERSACION_DESINFECTAR:
 inicializarConversacionSinDesinfectar();
 conversacionActual = conversacionSinDesinfectar;
+
+break;
+
+case CONVERSACION_PALANCA:
+
+conversacionActual = conversacionPalanca;
 
 break;
 }
@@ -412,4 +449,74 @@ dialogos.Push(l);
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 conversacionF1Ayudar.setRaiz(nodoRaiz);
+}
+
+//Fantasma F2
+function inicializarConversacionF2(){
+conversacionF2 = new ArbolConversacion(texturaCristina,texturaF2,texturaCristinaSombreada,texturaF2Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Mi cuerpo está en la morgue 1, pero la puerta está trabada",2);
+dialogos.Push(l);
+l = new LineaDialogo("Hay que abrirla de alguna manera",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, FANTASMA2);
+
+conversacionF2.setRaiz(nodoRaiz);
+}
+
+//Terminar la mision de F2
+function inicializarConversacionF2Ayudar(){
+conversacionF2Ayudar = new ArbolConversacion(texturaCristina,texturaF2,texturaCristinaSombreada,texturaF2Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF2Ayudar.setRaiz(nodoRaiz);
+}
+
+// Locker atorado con el cuerpo de F2
+function inicializarConversacionLockerF2(){
+conversacionLockerF2 = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Aquí está el locker, pero necesitaré algo para forzar la puerta",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionLockerF2.setRaiz(nodoRaiz);
+}
+
+// Encontrar la palanca en el locker de la morgue 2
+function inicializarConversacionPalanca(){
+conversacionPalanca = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Oh, una palanca",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionPalanca.setRaiz(nodoRaiz);
 }

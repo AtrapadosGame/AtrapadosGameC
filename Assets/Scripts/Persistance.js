@@ -20,10 +20,8 @@ party = new Player[4];
 //Se inicializa el nivel con diana y dario
 party[0] = new Player(texturaCuadroCristina, Player_Manager.CRISTINA,"Cristina", texturaCursorCristina );
 
-
-inventario[0]  = new Item(texturaPala,0,"Pala");
-inventario[1]  = new Item(texturaBotiquin,1,"Botiquin");
-inventario[2] = new Item(texturaToalla,2,"Toalla");
+//inventario[0]  = new Item(texturaPala,GameObject.Find("LevelManager2").GetComponent(Inventario).OBJETO_PALA,"Pala");
+inventario[2] = new Item(texturaToalla,GameObject.Find("LevelManager2").GetComponent(Inventario).OBJETO_TOALLA,"Toalla");
 }
 // ================================================================================
 // Variables

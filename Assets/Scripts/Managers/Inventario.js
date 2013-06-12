@@ -11,6 +11,15 @@ private var alto : int;
 var customSkin: GUISkin;
 var texturaVacia : Texture2D;
 private var lastTooltip : String =  "";
+
+//=================================================================================
+// Constantes para los items
+//=================================================================================
+public static final var OBJETO_LLAVE  :int= 0;
+public static final var OBJETO_BOTIQUIN  :int= 1;
+public static final var OBJETO_PALA  :int= 3;
+public static final var OBJETO_TOALLA  :int= 4;
+public static final var OBJETO_PALANCA  :int= 5;
 // ================================================================================
 // Start
 // ================================================================================
@@ -67,7 +76,6 @@ for(var i:int = 0 ; i <4 ; i++){
 		return  true;
 
 	}
-
 }
 return false;
 }

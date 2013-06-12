@@ -17,13 +17,19 @@ var texturaCursorGabriela : Texture2D;
 
 var texturaCuadroCristina : Texture2D;
 var texturaCuadroGabriela : Texture2D;
+var texturaPalanca : Texture2D;
 
 //FLAGS
-private var flagConserje : boolean = false;
-private var flagFCuerpo : boolean = false;
-private var flagEncontrarCuerpoF1 : boolean = false;
-private var desinfectado : boolean = false;
-private var cinematica1 : boolean = false;
+private var flagConserje : boolean = false;// Hablar con el conserje por primera vez
+private var flagFCuerpo : boolean = false;// Hablar con el fantasma F1 (En la primera morgue)
+private var flagFTrabado : boolean = false;// Hablar con el fantasma F2 (En el salón grande al lado de los baños)
+private var flagEncontrarCuerpoF1 : boolean = false;// En contrar el cuerpo de F1
+private var flagRescatarCuerpoF2 : boolean = false;// En contrar el cuerpo de F2
+private var desinfectado : boolean = false;// Desinfectarse en una estación
+private var cinematica1 : boolean = false;// Cinemática del fantasma F1
+private var cinematica2 : boolean = false;// Cinemática del fantasma F2
+private var cinematica3 : boolean = false;// Abrir el locker con una palanca
+
 
 function Awake () {
 
@@ -52,6 +58,12 @@ currentPlayer = tempPlayers[0];
 function OnGUI(){
 	if(cinematica1){
 		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[0]);
+	}
+	if(cinematica2){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[1]);
+	}
+	if(cinematica3){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[2]);
 	}
 }
 
@@ -188,19 +200,69 @@ function EventSwitch(comando : String){
 			GameObject.Find("F1").collider.enabled = false;
 		}	
 	}
+	
+	//Fantasma en el salon de abajo con el cuerpo atrapado en la morgue 1
+	if(comando.Equals("F2")){
+		if(!flagRescatarCuerpoF2){
+		print("No se ha rescatado a f2");
+			if(currentPlayer.getId() == Player_Manager.CRISTINA){
+				if(flagConserje)
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F2);
+				else
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);
+			}
+			else{
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematica2 = true;
+				yield WaitForSeconds(5);
+				cinematica2 = false;
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+			}
+		}
+		else{
+		print("Dialogo de rescate f2");
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F2AYUDAR);
+			GameObject.Find("F2").renderer.enabled = false;
+			GameObject.Find("F2").collider.enabled = false;
+		}	
+	}
 	//Locker donde está el cuerpo del fantasma F1
 	if(comando.Equals("LockerF1")){
 		if(flagFCuerpo){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_LOCKERF1);
 			flagEncontrarCuerpoF1 = true;
-			}
+		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_VACIO);
+		}
+	}
+	//Locker trabado donde está el cuerpo del fantasma F2
+	if(comando.Equals("LockerF2")){
+		if(flagFTrabado){
+			var pala : boolean = GetComponent(Inventario).enInventario(GetComponent(Inventario).OBJETO_PALA);
+			var palanca : boolean = GetComponent(Inventario).enInventario(GetComponent(Inventario).OBJETO_PALANCA);
+			if(pala || palanca){
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematica3 = true;
+				yield WaitForSeconds(3);
+				cinematica3 = false;
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+				flagRescatarCuerpoF2 = true;
 			}
+			else
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_LOCKERF2);
+		}
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_VACIO);
+		}
 	}
 	//Cualquier locker que no contenga algo importante
 	if(comando.Equals("LockerVacio")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_VACIO);
+	}
+	if(comando.Equals("LockerPalanca")){
+		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_PALANCA);
+		GetComponent(Inventario).addItem(new Item(texturaPalanca, GetComponent(Inventario).OBJETO_PALANCA));
 	}
 	//Puertas corrediza para entrar a las morgues
 	if(comando.Equals("Puerta1")){
@@ -288,6 +350,9 @@ case ManagerDialogos2.FANTASMA1:
 	flagFCuerpo = true;
 break;
 
+case ManagerDialogos2.FANTASMA2:
+	flagFTrabado = true;
+break;
 }
 
 

@@ -1,10 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\LevelManager\Manager2.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js">
     <Files>
-      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="170" Column="30" />
-      <File FileName="Assets\Scripts\Managers\LevelManager\Manager1.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="409" Column="75" />
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="20" Column="32" />
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager1.js" Line="240" Column="104" />
+      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="521" Column="20" />
+      <File FileName="Assets\Scripts\Persistance.js" Line="23" Column="3" />
+      <File FileName="Assets\Scripts\Managers\Inventario.js" Line="22" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
