@@ -53,7 +53,7 @@ function OnGUI () {
 }
 //TODO
 function WindowFunction (windowID : int) {
-	GUI.Label(new Rect(ventana.width/2,10,ancho,alto), "Puzzle");
+	GUI.Label(new Rect(ventana.width/2,10,ancho,alto), "¿Cual será el anillo? Solo tengo un intento");
 
 	if(GUI.Button(new Rect(ventana.width/3, (ventana.height * 3)/4, ancho, alto ), "Anillo de oro")){
 		GetComponent(Manager2).EventTrigger("AnilloOro");

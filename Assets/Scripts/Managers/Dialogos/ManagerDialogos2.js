@@ -18,10 +18,23 @@ private var conversacionF3Paila : ArbolConversacion;
 private var conversacionF4 : ArbolConversacion;
 private var conversacionF4Ayudar : ArbolConversacion;
 private var conversacionF4Paila : ArbolConversacion;
+private var conversacionF5 : ArbolConversacion;
+private var conversacionF5Ayudar : ArbolConversacion;
+private var conversacionF7 : ArbolConversacion;
+private var conversacionF7Ayudar : ArbolConversacion;
+private var conversacionF7Paila : ArbolConversacion;
+private var conversacionNovia : ArbolConversacion;
 private var conversacionLockerVacio : ArbolConversacion;
 private var conversacionSinDesinfectar : ArbolConversacion;
 private var conversacionPalanca : ArbolConversacion;
 private var conversacionAlambre : ArbolConversacion;
+private var conversacionMatarToalla : ArbolConversacion;
+private var conversacionMatarPapel : ArbolConversacion;
+private var conversacionNoPuedeMatar : ArbolConversacion;
+private var conversacionPapel : ArbolConversacion;
+private var conversacionTerminarPapel : ArbolConversacion;
+private var conversacionSinPapel : ArbolConversacion;
+private var conversacionTaza : ArbolConversacion;
 
 private var ventana : Rect = Rect(0,(Screen.height/2)+50, Screen.width,(Screen.height/3));
 private var textoActivo: String;
@@ -32,10 +45,8 @@ private var textoOpcion3: String;
 private var texturaActual1 : Texture2D;
 private var texturaActual2 : Texture2D;
 
-
 //Conexión con el LevelManager
 var manager : GameObject;
-
 
 var customSkin: GUISkin;
 var texturaCristina: Texture2D;
@@ -45,6 +56,7 @@ var texturaF1: Texture2D;
 var texturaF2: Texture2D;
 var texturaF3: Texture2D;
 var texturaF4: Texture2D;
+var texturaF5: Texture2D;
 
 var texturaCristinaSombreada: Texture2D;
 var texturaGabrielaSombreada: Texture2D;
@@ -53,7 +65,7 @@ var texturaF1Sombreada: Texture2D;
 var texturaF2Sombreada: Texture2D;
 var texturaF3Sombreada: Texture2D;
 var texturaF4Sombreada: Texture2D;
-
+var texturaF5Sombreada: Texture2D;
 
 public static final var CONVERSACION_GABRIELA  :int= 0;
 public static final var CONVERSACION_CONSERJE  :int= 1;
@@ -74,13 +86,25 @@ public static final var CONVERSACION_F3PAILA  :int= 15;
 public static final var CONVERSACION_F4  :int= 16;
 public static final var CONVERSACION_F4AYUDAR  :int= 17;
 public static final var CONVERSACION_F4PAILA  :int= 18;
+public static final var CONVERSACION_F5  :int= 19;
+public static final var CONVERSACION_F5AYUDAR  :int= 20;
+public static final var CONVERSACION_MATARTOALLA  :int= 21;
+public static final var CONVERSACION_MATARPAPEL  :int= 22;
+public static final var CONVERSACION_NOVIA  :int= 23;
+public static final var CONVERSACION_NOPUEDEMATAR :int= 24;
+public static final var CONVERSACION_PAPEL :int= 25;
+public static final var CONVERSACION_TERMINARPAPEL :int= 26;
+public static final var CONVERSACION_SINPAPEL :int= 27;
+public static final var CONVERSACION_TAZA :int= 28;
+public static final var CONVERSACION_F7  :int= 29;
+public static final var CONVERSACION_F7AYUDAR  :int= 30;
+public static final var CONVERSACION_F7PAILA  :int= 31;
 
 public static final var GABRIELA = 1;
 public static final var CONSERJE = 2;
 public static final var FANTASMA1 = 3;
 public static final var FANTASMA2 = 4;
-
-
+public static final var MATAR_NOVIA = 5;
 
 // ================================================================================
 // OnCreate
@@ -103,6 +127,16 @@ function Start(){
  inicializarConversacionF4Ayudar();
  inicializarConversacionF4Paila();
  inicializarConversacionAlambre();
+ inicializarConversacionF5();
+ inicializarConversacionF5Ayudar();
+ inicializarConversacionMatarToalla();
+ inicializarConversacionMatarPapel();
+ inicializarConversacionNovia();
+ inicializarConversacionNoPuedeMatar();
+ inicializarConversacionTerminarPapel();
+ inicializarConversacionF7();
+ inicializarConversacionF7Ayudar();
+ inicializarConversacionF7Paila();
 }
 
 
@@ -299,6 +333,39 @@ conversacionActual = conversacionF4Paila;
 
 break;
 
+case CONVERSACION_F5:
+
+conversacionActual = conversacionF5;
+
+break;
+
+case CONVERSACION_F5AYUDAR:
+conversacionActual = conversacionF5Ayudar;
+
+break;
+
+case CONVERSACION_NOVIA:
+
+conversacionActual = conversacionNovia;
+
+break;
+
+case CONVERSACION_F7:
+
+conversacionActual = conversacionF7;
+
+break;
+
+case CONVERSACION_F7AYUDAR:
+conversacionActual = conversacionF7Ayudar;
+
+break;
+
+case CONVERSACION_F7PAILA:
+conversacionActual = conversacionF7Paila;
+
+break;
+
 case CONVERSACION_VACIO:
 inicializarConversacionLockerVacio();
 conversacionActual = conversacionLockerVacio;
@@ -320,6 +387,48 @@ break;
 case CONVERSACION_ALAMBRE:
 
 conversacionActual = conversacionAlambre;
+
+break;
+
+case CONVERSACION_MATARTOALLA:
+
+conversacionActual = conversacionMatarToalla;
+
+break;
+
+case CONVERSACION_MATARPAPEL:
+
+conversacionActual = conversacionMatarPapel;
+
+break;
+
+case CONVERSACION_NOPUEDEMATAR:
+
+conversacionActual = conversacionNoPuedeMatar;
+
+break;
+
+case CONVERSACION_PAPEL:
+inicializarConversacionPapel();
+conversacionActual = conversacionPapel;
+
+break;
+
+case CONVERSACION_TERMINARPAPEL:
+
+conversacionActual = conversacionTerminarPapel;
+
+break;
+
+case CONVERSACION_SINPAPEL:
+inicializarConversacionSinPapel();
+conversacionActual = conversacionSinPapel;
+
+break;
+
+case CONVERSACION_TAZA:
+inicializarConversacionTaza();
+conversacionActual = conversacionTaza;
 
 break;
 }
@@ -705,4 +814,233 @@ dialogos.Push(l);
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 conversacionF4Paila.setRaiz(nodoRaiz);
+}
+
+//Conversación con F5
+function inicializarConversacionF5(){
+conversacionF5 = new ArbolConversacion(texturaCristina,texturaF5,texturaCristinaSombreada,texturaF5Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Temo por mi novia. No puedo irme sin saber si ella está en paz",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF5.setRaiz(nodoRaiz);
+}
+
+//Ayudar a F5
+function inicializarConversacionF5Ayudar(){
+conversacionF5Ayudar = new ArbolConversacion(texturaCristina,texturaF5,texturaCristinaSombreada,texturaF5Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionF5Ayudar.setRaiz(nodoRaiz);
+}
+
+//Matar a novia de F5 con la toalla
+function inicializarConversacionMatarToalla(){
+conversacionMatarToalla = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Espero no sufra mucho con esto",1);
+dialogos.Push(l);
+l = new LineaDialogo("No sufrirá mas de lo que ya está sufriendo. Es lo mejor, hazlo",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, MATAR_NOVIA);
+conversacionMatarToalla.setRaiz(nodoRaiz);
+}
+
+//Matar a novia de F5 con papel higiénico
+function inicializarConversacionMatarPapel(){
+conversacionMatarPapel = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Dios, esto es horrible, no me siento capaz de hecerlo.",1);
+dialogos.Push(l);
+l = new LineaDialogo("Tienes que hacerlo. Está sufriendo, y si no la matas, ni ella ni su novio descansarán en paz.",2);
+dialogos.Push(l);
+l = new LineaDialogo("Si, tienes razón, debo hacerlo.",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, MATAR_NOVIA);
+conversacionMatarPapel.setRaiz(nodoRaiz);
+}
+
+//Encontrar a la novia sin haber hablado con F5
+function inicializarConversacionNovia(){
+conversacionNovia = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Aqui hay una pobre mujer medio muerta.",1);
+dialogos.Push(l);
+l = new LineaDialogo("Morirá en cualquier momento, ignórala por ahora",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿No debería ayudarla?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Nuestra prioridad son los fantasmas, despues nos ocuparemos de ella",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionNovia.setRaiz(nodoRaiz);
+}
+
+//No tiene items para matar a la novia
+function inicializarConversacionNoPuedeMatar(){
+conversacionNoPuedeMatar = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Hay que matar de alguna forma.",1);
+dialogos.Push(l);
+l = new LineaDialogo("Ahógala",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Con qué?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Algo nos ha de servir, busquemos por aquí",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionNoPuedeMatar.setRaiz(nodoRaiz);
+}
+
+//Coger papel Higiénico
+function inicializarConversacionPapel(){
+conversacionPapel = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Esto tal vez sirva",1);
+dialogos.Push(l);
+l = new LineaDialogo("Si, pero necesitaremos más",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionPapel.setRaiz(nodoRaiz);
+}
+
+//Terminar con el papel higiénico
+function inicializarConversacionTerminarPapel(){
+conversacionTerminarPapel = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Con esto será suficiente, creo",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionTerminarPapel.setRaiz(nodoRaiz);
+}
+
+//Terminar con el papel higiénico
+function inicializarConversacionSinPapel(){
+conversacionSinPapel = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Rayos, aquí no hay papel",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionSinPapel.setRaiz(nodoRaiz);
+}
+
+//En el baño sin hablar con F5
+function inicializarConversacionTaza(){
+conversacionTaza = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Oh, un baño....No tengo ganas.",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionTaza.setRaiz(nodoRaiz);
+}
+
+//Conversacion con F7
+function inicializarConversacionF7(){
+conversacionF7 = new ArbolConversacion(texturaCristina,texturaF7,texturaCristinaSombreada,texturaF7Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("No puedo creer que no me acuerde del nombre de mis hijos, o el de mi esposa",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionF7.setRaiz(nodoRaiz);
+}
+
+//Conversacion con F7 despues de ayudarlo
+function inicializarConversacionF7Ayudar(){
+conversacionF7Ayudar = new ArbolConversacion(texturaCristina,texturaF7,texturaCristinaSombreada,texturaF7Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Si, esos son, ya me acuerdo. Ya puedo irme en paz",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionF7Ayudar.setRaiz(nodoRaiz);
+}
+
+//Conversacion con F7 al fallar el puzzle
+function inicializarConversacionF7Paila(){
+conversacionF7Paila = new ArbolConversacion(texturaCristina,texturaF7,texturaCristinaSombreada,texturaF7Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("No, esos no son. Vuelve a intentar",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionF7Paila.setRaiz(nodoRaiz);
 }

@@ -22,8 +22,9 @@ public static final var TIJERAS : int = 6;
 public static final var LLAVE  :int= 7;
 public static final var PALANCA  :int= 8;
 public static final var ALAMBRE  :int= 9;
-public static final var ANILLOORO  :int= 10;
-public static final var ANILLOPLATA  :int= 11;
+public static final var ANILLO_ORO  :int= 10;
+public static final var ANILLO_PLATA  :int= 11;
+public static final var PAPEL_HIGIENICO  :int= 12;
 
 
 // ================================================================================

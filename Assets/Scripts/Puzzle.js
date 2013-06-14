@@ -107,14 +107,11 @@ print("La cantidad de seleccionados despues es: " + cantidadSeleccionados);
 if(GUI.Button(new Rect(ventana.width/3, (ventana.height * 3)/4, ancho, alto ), "Probar")){
 		
 		if(esSolucion()){
-		
-		print("encontro respuest");
-		//TODO...RETORNA A EL MANAGER DEL LEVEL
+			GetComponent(Manager2).EventTrigger("SolucionCorrecta");
 		}else{
-		print("No es la respuesta");
-		}
-		
-		}
+			GetComponent(Manager2).EventTrigger("SolucionIncorrecta");
+		}		
+}
 
 if(GUI.Button(new Rect((ventana.width/9)*5, (ventana.height * 3)/4, ancho, alto ), "Cancelar")){
 		

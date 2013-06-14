@@ -21,7 +21,7 @@ party = new Player[4];
 party[0] = new Player(texturaCuadroCristina, Player_Manager.CRISTINA,"Cristina", texturaCursorCristina );
 
 //inventario[0]  = new Item(texturaPala,GameObject.Find("LevelManager2").GetComponent(Inventario).OBJETO_PALA,"Pala");
-inventario[2] = new Item(texturaToalla,InventarioManager.TOALLA,"Toalla");
+//inventario[2] = new Item(texturaToalla,InventarioManager.TOALLA,"Toalla");
 }
 // ================================================================================
 // Variables

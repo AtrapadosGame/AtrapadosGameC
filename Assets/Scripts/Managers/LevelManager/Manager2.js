@@ -5,7 +5,6 @@ private var currentPlayer : Player;
 // ================================================================================
 // Variables
 // ================================================================================
-//Variables para los managers
 private var managerDialogos: ManagerDialogos2;
 private var playerManager : Player_Manager;
 private var lootManager : LootManager2;
@@ -13,12 +12,12 @@ private var persistance : Persistance;
 private var inventario : InventarioManager;
 private var puzzle : Puzzle;
 private var puzzleAlambre : PuzzleAlambre;
+private var contadorPapel : int;
 
 // ================================================================================
 // Texturas
 // ================================================================================
-//Texturas
-var cinematicas : Texture2D[] = new Texture2D[5];
+var cinematicas : Texture2D[] = new Texture2D[8];
 
 var texturaCursorCristina : Texture2D;
 var texturaCursorGabriela : Texture2D;
@@ -29,17 +28,20 @@ var texturaPalanca : Texture2D;
 var texturaAlambre : Texture2D;
 var texturaAnilloOro : Texture2D;
 var texturaAnilloPlata : Texture2D;
+var texturaPapelHigienico : Texture2D;
 
 // ================================================================================
 // FLAGS
 // ================================================================================
-//FLAGS
 private var flagConserje : boolean = false;// Hablar con el conserje por primera vez
 private var flagFCuerpo : boolean = false;// Hablar con el fantasma F1 (En la primera morgue)
 private var flagFTrabado : boolean = false;// Hablar con el fantasma F2 (En el salón grande al lado de los baños)
 private var flagEncontrarCuerpoF1 : boolean = false;// En contrar el cuerpo de F1
 private var flagRescatarCuerpoF2 : boolean = false;// En contrar el cuerpo de F2
 private var flagRescatarAnilloF3 : boolean = false;// Recuperar el anillo de F3
+private var flagMatoNovia : boolean = false;//Matar a la novia de F5 en el baño
+private var flagHabloF5 : boolean = false;// Hablar con el fantasma F5
+private var flagPuedeCoger : boolean = true; // Controla el quest de conseguir papel higiénico
 private var desinfectado : boolean = false;// Desinfectarse en una estación
 
 private var cinematica1 : boolean = false;// Cinemática del fantasma F1
@@ -47,6 +49,9 @@ private var cinematica2 : boolean = false;// Cinemática del fantasma F2
 private var cinematica3 : boolean = false;// Abrir el locker con una palanca
 private var cinematica4 : boolean = false;// Cinemática del fantasma F3
 private var cinematica5 : boolean = false;// Cinemática del fantasma F4
+private var cinematica6 : boolean = false;// Cinemática del fantasma F5
+private var cinematica7 : boolean = false;// Cinematica matando a la novia
+private var cinematica8 : boolean = false;// Cinematica del fantasma F7
 
 // ================================================================================
 // Awake
@@ -94,6 +99,15 @@ function OnGUI(){
 	}
 	if(cinematica5){
 		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[4]);
+	}
+	if(cinematica6){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[5]);
+	}
+	if(cinematica7){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[6]);
+	}
+	if(cinematica8){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[7]);
 	}
 }
 
@@ -199,13 +213,21 @@ function EventTrigger(objName : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F3AYUDAR);
 			GameObject.Find("F3").renderer.enabled = false;
 			GameObject.Find("F3").collider.enabled = false;
-			inventario.addItem(new Item(texturaAnilloOro, inventario.ANILLOORO));
+			inventario.addItem(new Item(texturaAnilloOro, inventario.ANILLO_ORO));
 	}
 	if(objName.Equals("AnilloPlata")){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F3PAILA);
 			GameObject.Find("F3").renderer.enabled = false;
 			GameObject.Find("F3").collider.enabled = false;
-			inventario.addItem(new Item(texturaAnilloPlata, inventario.ANILLOPLATA));
+			inventario.addItem(new Item(texturaAnilloPlata, inventario.ANILLO_PLATA));
+	}
+	if(objName.Equals("SolucionCorrecta")){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7AYUDA);
+			GameObject.Find("F7").renderer.enabled = false;
+			GameObject.Find("F7").collider.enabled = false;
+	}
+	if(objName.Equals("SolucionIncorrecta")){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7PAILA);
 	}
 }
 // ================================================================================
@@ -220,10 +242,12 @@ function EventSwitch(comando : String){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_GABRIELA);
 	}
 	if(comando.Equals("Puzzle")){
-	
-	print("esta entrando al puzzle");
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		puzzle.empezarPuzzle();
+		if(flagConserje){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7);
+		}
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);
+		}
 	}
 	//Hablar con el conserje
 	if(comando.Equals("Conserje")){
@@ -307,12 +331,12 @@ function EventSwitch(comando : String){
 	if(comando.Equals("F4")){
 		if(flagConserje){
 			if(currentPlayer.getId() == Player_Manager.CRISTINA){
-				if(inventario.enInventario(InventarioManager.ANILLOORO)){
+				if(inventario.enInventario(InventarioManager.ANILLO_ORO)){
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4AYUDAR);
 					GameObject.Find("F4").renderer.enabled = false;
 					GameObject.Find("F4").collider.enabled = false;
 				}
-				else if(inventario.enInventario(InventarioManager.ANILLOPLATA)){
+				else if(inventario.enInventario(InventarioManager.ANILLO_PLATA)){
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4PAILA);
 					GameObject.Find("F4").renderer.enabled = false;
 					GameObject.Find("F4").collider.enabled = false;
@@ -330,6 +354,45 @@ function EventSwitch(comando : String){
 		}
 		else
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);	
+	}
+	if(comando.Equals("F5")){
+		if(flagConserje){
+			if(flagMatoNovia){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F5AYUDAR);
+				GameObject.Find("F5").renderer.enabled = false;
+				GameObject.Find("F5").collider.enabled = false;
+			}
+			else{
+				if(currentPlayer.getId() == Player_Manager.CRISTINA){
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F5);
+					flagHabloF5 = true;
+				}
+				else{
+					currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+					cinematica6 = true;
+					yield WaitForSeconds(5);
+					cinematica6 = false;
+					currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+				}
+			}
+		}
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);	
+	}
+	if(comando.Equals("Novia")){
+		if(flagHabloF5){
+			if(inventario.enInventario(InventarioManager.TOALLA)){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_MATARTOALLA);
+			}
+			else if(inventario.enInventario(InventarioManager.PAPEL_HIGIENICO)){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_MATARPAPEL);
+			}
+			else
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_NOPUEDEMATAR);
+		}
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_NOVIA);
+		}	
 	}
 	//Locker donde está el cuerpo del fantasma F1
 	if(comando.Equals("LockerF1")){
@@ -365,13 +428,55 @@ function EventSwitch(comando : String){
 	if(comando.Equals("LockerVacio")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_VACIO);
 	}
+	//Locker con la palanca
 	if(comando.Equals("LockerPalanca")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_PALANCA);
 		inventario.addItem(new Item(texturaPalanca, inventario.PALANCA));
 	}
+	// Lavabo con el alambre
 	if(comando.Equals("Alambre")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ALAMBRE);
 		inventario.addItem(new Item(texturaAlambre, inventario.ALAMBRE));
+	}
+	//Baño con papel higiénico
+	if(comando.Equals("Papel1")){
+		if(flagHabloF5){
+			CogerPapel();
+			GameObject.Find("Taza1").GetComponent(Interactor_Click).FlagOff();
+		}
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
+	}
+	if(comando.Equals("Papel2")){
+		if(flagHabloF5){
+			CogerPapel();
+			GameObject.Find("Taza2").GetComponent(Interactor_Click).FlagOff();
+		}
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
+			
+	}
+	if(comando.Equals("Papel3")){
+		if(flagHabloF5){
+			CogerPapel();
+			GameObject.Find("Taza3").GetComponent(Interactor_Click).FlagOff();
+		}
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
+	}
+	if(comando.Equals("Papel4")){
+		if(flagHabloF5){
+			CogerPapel();
+			GameObject.Find("Taza4").GetComponent(Interactor_Click).FlagOff();
+		}
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
+	}
+	if(comando.Equals("SinPapel")){
+		if(flagHabloF5)
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SINPAPEL);
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
 	}
 	//Puertas corrediza para entrar a las morgues
 	if(comando.Equals("Puerta1")){
@@ -464,13 +569,43 @@ break;
 case ManagerDialogos2.FANTASMA2:
 	flagFTrabado = true;
 break;
+
+case ManagerDialogos2.MATAR_NOVIA:
+	currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+	cinematica7 = true;
+	yield WaitForSeconds(3);
+	cinematica7 = false;
+	currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+	flagMatoNovia = true;
+break;
+
+case ManagerDialogos2.F7_MAL:
+	puzzle.empezarPuzzle();
+break;
 }
 
 
 		
 }
 
+// =================================================================================
+// Funciones auxiliares
+// =================================================================================
 
+// Retorna una cinemática en específico
 function DarCinematica(index : int){
 	return cinematicas[index];
+}
+
+// Función para controlar el quest de conseguir papel higiénico
+private function CogerPapel(){
+	if(contadorPapel >= 3 && flagPuedeCoger){
+		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TERMINARPAPEL);
+		inventario.addItem(new Item(texturaPalanca, inventario.PAPEL_HIGIENICO));
+		flagPuedeCoger = false;
+	}
+	else if(flagPuedeCoger){
+		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_PAPEL);
+		contadorPapel++;
+	}
 }
