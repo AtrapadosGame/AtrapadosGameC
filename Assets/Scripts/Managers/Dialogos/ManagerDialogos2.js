@@ -57,6 +57,7 @@ var texturaF2: Texture2D;
 var texturaF3: Texture2D;
 var texturaF4: Texture2D;
 var texturaF5: Texture2D;
+var texturaF7: Texture2D;
 
 var texturaCristinaSombreada: Texture2D;
 var texturaGabrielaSombreada: Texture2D;
@@ -66,6 +67,7 @@ var texturaF2Sombreada: Texture2D;
 var texturaF3Sombreada: Texture2D;
 var texturaF4Sombreada: Texture2D;
 var texturaF5Sombreada: Texture2D;
+var texturaF7Sombreada: Texture2D;
 
 public static final var CONVERSACION_GABRIELA  :int= 0;
 public static final var CONVERSACION_CONSERJE  :int= 1;
@@ -105,6 +107,7 @@ public static final var CONSERJE = 2;
 public static final var FANTASMA1 = 3;
 public static final var FANTASMA2 = 4;
 public static final var MATAR_NOVIA = 5;
+public static final var F7_PUZZLE = 6;
 
 // ================================================================================
 // OnCreate
@@ -358,11 +361,14 @@ break;
 
 case CONVERSACION_F7AYUDAR:
 conversacionActual = conversacionF7Ayudar;
+dibujarDialogo();
 
 break;
 
 case CONVERSACION_F7PAILA:
+inicializarConversacionF7Paila();
 conversacionActual = conversacionF7Paila;
+dibujarDialogo();
 
 break;
 
@@ -1009,7 +1015,7 @@ var dialogos : Array = new Array();
 var l: LineaDialogo = new LineaDialogo("No puedo creer que no me acuerde del nombre de mis hijos, o el de mi esposa",2);
 dialogos.Push(l);
 
-var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, F7_PUZZLE);
 conversacionF7.setRaiz(nodoRaiz);
 }
 
@@ -1041,6 +1047,6 @@ var dialogos : Array = new Array();
 var l: LineaDialogo = new LineaDialogo("No, esos no son. Vuelve a intentar",2);
 dialogos.Push(l);
 
-var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, F7_PUZZLE);
 conversacionF7Paila.setRaiz(nodoRaiz);
 }

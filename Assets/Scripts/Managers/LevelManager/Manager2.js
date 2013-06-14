@@ -222,7 +222,7 @@ function EventTrigger(objName : String){
 			inventario.addItem(new Item(texturaAnilloPlata, inventario.ANILLO_PLATA));
 	}
 	if(objName.Equals("SolucionCorrecta")){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7AYUDA);
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7AYUDAR);
 			GameObject.Find("F7").renderer.enabled = false;
 			GameObject.Find("F7").collider.enabled = false;
 	}
@@ -243,7 +243,16 @@ function EventSwitch(comando : String){
 	}
 	if(comando.Equals("Puzzle")){
 		if(flagConserje){
-			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7);
+			if(currentPlayer.getId() == Player_Manager.CRISTINA){
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7);
+			}
+			else{
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematica8 = true;
+				yield WaitForSeconds(5);
+				cinematica8 = false;
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+			}
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);
@@ -579,7 +588,7 @@ case ManagerDialogos2.MATAR_NOVIA:
 	flagMatoNovia = true;
 break;
 
-case ManagerDialogos2.F7_MAL:
+case ManagerDialogos2.F7_PUZZLE:
 	puzzle.empezarPuzzle();
 break;
 }

@@ -28,9 +28,8 @@ private var puzzle: boolean[,] = new boolean[3,3];
 
 //Constantes
 private var SOLUCION: boolean[,] = new boolean[3,3];
-private var NOMBRES = ["Camilo", "Andrea", "Maria", "Andres","Felipe","Laura", "Estela","Ana", "Marina"];
+private var NOMBRES = ["Susana", "Andrea", "Maria", "Andres","Felipe","Laura", "Estela","Ana", "Marina"];
 
-//public static final var SOLUCION = [ [true,true,false]  , [false,true,false] , [false,false,false]];
 
 
 
@@ -77,7 +76,7 @@ function OnGUI () {
 }
 //TODO
 function WindowFunction (windowID : int) {
-GUI.Label(new Rect(ventana.width/2,10,ancho,alto), "Puzzle");
+GUI.Label(new Rect(ventana.width/2,10,ancho,alto), "Son mi esposa, un niño y una niña ¿Cuales son sus nombres?");
 var contadorNombres: int = 0 ;
 for(var i:int = 0 ; i <3 ; i++){
 
@@ -108,6 +107,8 @@ if(GUI.Button(new Rect(ventana.width/3, (ventana.height * 3)/4, ancho, alto ), "
 		
 		if(esSolucion()){
 			GetComponent(Manager2).EventTrigger("SolucionCorrecta");
+			puzzleActivo = false;
+			GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOn();
 		}else{
 			GetComponent(Manager2).EventTrigger("SolucionIncorrecta");
 		}		
@@ -130,12 +131,9 @@ if(GUI.Button(new Rect((ventana.width/9)*5, (ventana.height * 3)/4, ancho, alto 
 
 
 function empezarPuzzle(){
-print("empezarLoot");
 GetComponent(MenuManager).setBotonesHabilitado(false);
 GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
-
 puzzleActivo = true;
-
 
 }
 

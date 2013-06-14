@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\LevelManager\Manager2.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Puzzle.js">
     <Files>
-      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="249" Column="71" />
-      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="1045" Column="39" />
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="253" Column="16" />
+      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="369" Column="34" />
       <File FileName="Assets\Scripts\Puzzle.js" Line="111" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
