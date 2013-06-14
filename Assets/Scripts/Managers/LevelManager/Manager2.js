@@ -12,6 +12,7 @@ private var lootManager : LootManager2;
 private var persistance : Persistance;
 private var inventario : InventarioManager;
 private var puzzle : Puzzle;
+private var puzzleAlambre : PuzzleAlambre;
 
 // ================================================================================
 // Texturas
@@ -21,10 +22,13 @@ var cinematicas : Texture2D[] = new Texture2D[5];
 
 var texturaCursorCristina : Texture2D;
 var texturaCursorGabriela : Texture2D;
-
 var texturaCuadroCristina : Texture2D;
 var texturaCuadroGabriela : Texture2D;
+
 var texturaPalanca : Texture2D;
+var texturaAlambre : Texture2D;
+var texturaAnilloOro : Texture2D;
+var texturaAnilloPlata : Texture2D;
 
 // ================================================================================
 // FLAGS
@@ -35,10 +39,14 @@ private var flagFCuerpo : boolean = false;// Hablar con el fantasma F1 (En la pr
 private var flagFTrabado : boolean = false;// Hablar con el fantasma F2 (En el salón grande al lado de los baños)
 private var flagEncontrarCuerpoF1 : boolean = false;// En contrar el cuerpo de F1
 private var flagRescatarCuerpoF2 : boolean = false;// En contrar el cuerpo de F2
+private var flagRescatarAnilloF3 : boolean = false;// Recuperar el anillo de F3
 private var desinfectado : boolean = false;// Desinfectarse en una estación
+
 private var cinematica1 : boolean = false;// Cinemática del fantasma F1
 private var cinematica2 : boolean = false;// Cinemática del fantasma F2
 private var cinematica3 : boolean = false;// Abrir el locker con una palanca
+private var cinematica4 : boolean = false;// Cinemática del fantasma F3
+private var cinematica5 : boolean = false;// Cinemática del fantasma F4
 
 // ================================================================================
 // Awake
@@ -54,6 +62,7 @@ inventario = GetComponent(InventarioManager);
 persistance = GameObject.Find("Persistance").GetComponent(Persistance);
 
 puzzle = GetComponent(Puzzle);
+puzzleAlambre = GetComponent(PuzzleAlambre);
 inventario.setItemsActuales(persistance.getInventario());
 
 var tempPlayers: Player[] = persistance.getParty();
@@ -80,6 +89,12 @@ function OnGUI(){
 	if(cinematica3){
 		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[2]);
 	}
+	if(cinematica4){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[3]);
+	}
+	if(cinematica5){
+		GUI.Label (Rect (Screen.width/2 - 600,Screen.height/2 - 250, Screen.width, Screen.height), cinematicas[4]);
+	}
 }
 
 // ================================================================================
@@ -87,7 +102,7 @@ function OnGUI(){
 // ================================================================================
 //Implementación de la función Trigger()
 function EventTrigger(objName : String){
-	currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
+	currentPlayer = playerManager.getCurrentPlayer();
 	if(objName.Equals("PuertaEntrada1")){
 		var puertaA : GameObject = GameObject.Find("PuertaCorrediza1");
 		//puertaA.GetComponent(TrasladarVertical).setVelocidad(0.11);
@@ -180,13 +195,25 @@ function EventTrigger(objName : String){
 		GameObject.Find("PuertaETrigger4").GetComponent(Interactor_Trigger).encender();
 		desinfectado = false;
 	}
+	if(objName.Equals("AnilloOro")){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F3AYUDAR);
+			GameObject.Find("F3").renderer.enabled = false;
+			GameObject.Find("F3").collider.enabled = false;
+			inventario.addItem(new Item(texturaAnilloOro, inventario.ANILLOORO));
+	}
+	if(objName.Equals("AnilloPlata")){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F3PAILA);
+			GameObject.Find("F3").renderer.enabled = false;
+			GameObject.Find("F3").collider.enabled = false;
+			inventario.addItem(new Item(texturaAnilloPlata, inventario.ANILLOPLATA));
+	}
 }
 // ================================================================================
 // Switch
 // ================================================================================
 //Imlementación de la funcion Switch()
 function EventSwitch(comando : String){
-	currentPlayer = GetComponent(Player_Manager).getCurrentPlayer();
+	currentPlayer = playerManager.getCurrentPlayer();
 	//Hablar a gabriela apenas empieza el nivel
 	if(comando.Equals("Gabriela")){
 	
@@ -230,7 +257,6 @@ function EventSwitch(comando : String){
 	//Fantasma en el salon de abajo con el cuerpo atrapado en la morgue 1
 	if(comando.Equals("F2")){
 		if(!flagRescatarCuerpoF2){
-		print("No se ha rescatado a f2");
 			if(currentPlayer.getId() == Player_Manager.CRISTINA){
 				if(flagConserje)
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F2);
@@ -246,11 +272,64 @@ function EventSwitch(comando : String){
 			}
 		}
 		else{
-		print("Dialogo de rescate f2");
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F2AYUDAR);
 			GameObject.Find("F2").renderer.enabled = false;
 			GameObject.Find("F2").collider.enabled = false;
 		}	
+	}
+	
+	//Fantasma tapando una de las estaciones
+	if(comando.Equals("F3")){
+		if(flagConserje){
+			if(inventario.enInventario(InventarioManager.ALAMBRE)){
+				puzzleAlambre.empezarPuzzle();	
+			}
+			else{
+				if(currentPlayer.getId() == Player_Manager.CRISTINA){
+				
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F3);
+				
+				}
+				else{
+					currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+					cinematica4 = true;
+					yield WaitForSeconds(5);
+					cinematica4 = false;
+					currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+				}
+			}
+		}
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);	
+	}
+	
+	//Fantasma en el baño de mujeres
+	if(comando.Equals("F4")){
+		if(flagConserje){
+			if(currentPlayer.getId() == Player_Manager.CRISTINA){
+				if(inventario.enInventario(InventarioManager.ANILLOORO)){
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4AYUDAR);
+					GameObject.Find("F4").renderer.enabled = false;
+					GameObject.Find("F4").collider.enabled = false;
+				}
+				else if(inventario.enInventario(InventarioManager.ANILLOPLATA)){
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4PAILA);
+					GameObject.Find("F4").renderer.enabled = false;
+					GameObject.Find("F4").collider.enabled = false;
+				}
+				else
+					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4);
+			}
+			else{
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
+				cinematica5 = true;
+				yield WaitForSeconds(5);
+				cinematica5 = false;
+				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
+			}
+		}
+		else
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_SIN);	
 	}
 	//Locker donde está el cuerpo del fantasma F1
 	if(comando.Equals("LockerF1")){
@@ -289,6 +368,10 @@ function EventSwitch(comando : String){
 	if(comando.Equals("LockerPalanca")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_PALANCA);
 		inventario.addItem(new Item(texturaPalanca, inventario.PALANCA));
+	}
+	if(comando.Equals("Alambre")){
+		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ALAMBRE);
+		inventario.addItem(new Item(texturaAlambre, inventario.ALAMBRE));
 	}
 	//Puertas corrediza para entrar a las morgues
 	if(comando.Equals("Puerta1")){
@@ -386,8 +469,6 @@ break;
 
 		
 }
-
-
 
 
 function DarCinematica(index : int){

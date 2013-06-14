@@ -12,9 +12,16 @@ private var conversacionLockerF1 : ArbolConversacion;
 private var conversacionF2 : ArbolConversacion;
 private var conversacionF2Ayudar : ArbolConversacion;
 private var conversacionLockerF2 : ArbolConversacion;
+private var conversacionF3 : ArbolConversacion;
+private var conversacionF3Ayudar : ArbolConversacion;
+private var conversacionF3Paila : ArbolConversacion;
+private var conversacionF4 : ArbolConversacion;
+private var conversacionF4Ayudar : ArbolConversacion;
+private var conversacionF4Paila : ArbolConversacion;
 private var conversacionLockerVacio : ArbolConversacion;
 private var conversacionSinDesinfectar : ArbolConversacion;
 private var conversacionPalanca : ArbolConversacion;
+private var conversacionAlambre : ArbolConversacion;
 
 private var ventana : Rect = Rect(0,(Screen.height/2)+50, Screen.width,(Screen.height/3));
 private var textoActivo: String;
@@ -36,12 +43,16 @@ var texturaGabriela: Texture2D;
 var texturaConserje: Texture2D;
 var texturaF1: Texture2D;
 var texturaF2: Texture2D;
+var texturaF3: Texture2D;
+var texturaF4: Texture2D;
 
 var texturaCristinaSombreada: Texture2D;
 var texturaGabrielaSombreada: Texture2D;
 var texturaConserjeSombreada: Texture2D;
 var texturaF1Sombreada: Texture2D;
 var texturaF2Sombreada: Texture2D;
+var texturaF3Sombreada: Texture2D;
+var texturaF4Sombreada: Texture2D;
 
 
 public static final var CONVERSACION_GABRIELA  :int= 0;
@@ -56,6 +67,13 @@ public static final var CONVERSACION_F2  :int= 8;
 public static final var CONVERSACION_F2AYUDAR  :int= 9;
 public static final var CONVERSACION_LOCKERF2  :int= 10;
 public static final var CONVERSACION_PALANCA  :int= 11;
+public static final var CONVERSACION_F3  :int= 12;
+public static final var CONVERSACION_F3AYUDAR  :int= 13;
+public static final var CONVERSACION_ALAMBRE  :int= 14;
+public static final var CONVERSACION_F3PAILA  :int= 15;
+public static final var CONVERSACION_F4  :int= 16;
+public static final var CONVERSACION_F4AYUDAR  :int= 17;
+public static final var CONVERSACION_F4PAILA  :int= 18;
 
 public static final var GABRIELA = 1;
 public static final var CONSERJE = 2;
@@ -78,6 +96,13 @@ function Start(){
  inicializarConversacionF2();
  inicializarConversacionF2Ayudar();
  inicializarConversacionPalanca();
+ inicializarConversacionF3();
+ inicializarConversacionF3Ayudar();
+ inicializarConversacionF3Paila();
+ inicializarConversacionF4();
+ inicializarConversacionF4Ayudar();
+ inicializarConversacionF4Paila();
+ inicializarConversacionAlambre();
 }
 
 
@@ -240,6 +265,40 @@ conversacionActual = conversacionLockerF2;
 
 break;
 
+case CONVERSACION_F3:
+
+conversacionActual = conversacionF3;
+
+break;
+
+case CONVERSACION_F3AYUDAR:
+conversacionActual = conversacionF3Ayudar;
+dibujarDialogo();
+
+break;
+
+case CONVERSACION_F3PAILA:
+conversacionActual = conversacionF3Paila;
+dibujarDialogo();
+
+break;
+
+case CONVERSACION_F4:
+
+conversacionActual = conversacionF4;
+
+break;
+
+case CONVERSACION_F4AYUDAR:
+conversacionActual = conversacionF4Ayudar;
+
+break;
+
+case CONVERSACION_F4PAILA:
+conversacionActual = conversacionF4Paila;
+
+break;
+
 case CONVERSACION_VACIO:
 inicializarConversacionLockerVacio();
 conversacionActual = conversacionLockerVacio;
@@ -255,6 +314,12 @@ break;
 case CONVERSACION_PALANCA:
 
 conversacionActual = conversacionPalanca;
+
+break;
+
+case CONVERSACION_ALAMBRE:
+
+conversacionActual = conversacionAlambre;
 
 break;
 }
@@ -518,4 +583,126 @@ dialogos.Push(l);
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
 conversacionPalanca.setRaiz(nodoRaiz);
+}
+
+// Conversación fantasma F3
+function inicializarConversacionF3(){
+conversacionF3 = new ArbolConversacion(texturaCristina,texturaF3,texturaCristinaSombreada,texturaF3Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Perdí mi argolla de compromiso en esta estación, no te dejaré usarla\n hasta recuperarlo",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF3.setRaiz(nodoRaiz);
+}
+
+//Ayudar al fantasma F3
+function inicializarConversacionF3Ayudar(){
+conversacionF3Ayudar = new ArbolConversacion(texturaCristina,texturaF3,texturaCristinaSombreada,texturaF3Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF3Ayudar.setRaiz(nodoRaiz);
+}
+
+//En el armario con el alambre
+function inicializarConversacionAlambre(){
+conversacionAlambre = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Oh, aqui hay un alambre",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionAlambre.setRaiz(nodoRaiz);
+}
+
+//Elegir el anillo incorrecto
+function inicializarConversacionF3Paila(){
+conversacionF3Paila = new ArbolConversacion(texturaCristina,texturaF3,texturaCristinaSombreada,texturaF3Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Nooo, mi esposa no me perdonará",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF3Paila.setRaiz(nodoRaiz);
+}
+
+//Conversación con F4
+function inicializarConversacionF4(){
+conversacionF4 = new ArbolConversacion(texturaCristina,texturaF4,texturaCristinaSombreada,texturaF4Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("No me iré hasta que mi esposo recupere la argolla",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF4.setRaiz(nodoRaiz);
+}
+
+//Ayudar a F4
+function inicializarConversacionF4Ayudar(){
+conversacionF4Ayudar = new ArbolConversacion(texturaCristina,texturaF4,texturaCristinaSombreada,texturaF4Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Si, ese es el anillo, gracias",2);
+dialogos.Push(l);
+l = new LineaDialogo("Bueno, ya te puedes ir en paz",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionF4Ayudar.setRaiz(nodoRaiz);
+}
+
+//Paila con F4
+function inicializarConversacionF4Paila(){
+conversacionF4Paila = new ArbolConversacion(texturaCristina,texturaF4,texturaCristinaSombreada,texturaF4Sombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("No, ese no es,nooo",2);
+dialogos.Push(l);
+l = new LineaDialogo("Ahhh",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+
+conversacionF4Paila.setRaiz(nodoRaiz);
 }
