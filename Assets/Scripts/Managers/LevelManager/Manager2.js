@@ -13,6 +13,8 @@ private var inventario : InventarioManager;
 private var puzzle : Puzzle;
 private var puzzleAlambre : PuzzleAlambre;
 private var contadorPapel : int;
+private var contadorFantasmas : int;
+private var contadorExitos : int;
 
 // ================================================================================
 // Texturas
@@ -69,7 +71,8 @@ persistance = GameObject.Find("Persistance").GetComponent(Persistance);
 puzzle = GetComponent(Puzzle);
 puzzleAlambre = GetComponent(PuzzleAlambre);
 inventario.setItemsActuales(persistance.getInventario());
-
+contadorPapel = 0;
+contadorFantasmas = 0;
 var tempPlayers: Player[] = persistance.getParty();
 for(var i:int = 0 ; i <tempPlayers.Length ; i++){
 	if(tempPlayers[i]){
@@ -213,6 +216,8 @@ function EventTrigger(objName : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F3AYUDAR);
 			GameObject.Find("F3").renderer.enabled = false;
 			GameObject.Find("F3").collider.enabled = false;
+			contadorFantasmas++;
+			contadorExitos++;
 			inventario.addItem(new Item(texturaAnilloOro, inventario.ANILLO_ORO));
 	}
 	if(objName.Equals("AnilloPlata")){
@@ -220,14 +225,18 @@ function EventTrigger(objName : String){
 			GameObject.Find("F3").renderer.enabled = false;
 			GameObject.Find("F3").collider.enabled = false;
 			inventario.addItem(new Item(texturaAnilloPlata, inventario.ANILLO_PLATA));
+			contadorFantasmas++;
 	}
 	if(objName.Equals("SolucionCorrecta")){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7AYUDAR);
 			GameObject.Find("F7").renderer.enabled = false;
 			GameObject.Find("F7").collider.enabled = false;
+			contadorFantasmas++;
+			contadorExitos++;
 	}
 	if(objName.Equals("SolucionIncorrecta")){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7PAILA);
+			contadorFantasmas++;
 	}
 }
 // ================================================================================
@@ -260,8 +269,19 @@ function EventSwitch(comando : String){
 	}
 	//Hablar con el conserje
 	if(comando.Equals("Conserje")){
-	
-		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONSERJE);
+		if(contadorFantasmas >= 6){
+			if(contadorFantasmas == contadorExitos)
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_EXITO);
+			else
+				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_FRACASO);
+		}
+		else if(flagConserje){
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CODIGO);
+		}
+		else{
+			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_CONSERJE);
+		}
+		
 	}
 	//Fantasma buscando su cuerpo en la morgue 1
 	if(comando.Equals("F1")){
@@ -284,6 +304,8 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F1AYUDAR);
 			GameObject.Find("F1").renderer.enabled = false;
 			GameObject.Find("F1").collider.enabled = false;
+			contadorFantasmas++;
+			contadorExitos++;
 		}	
 	}
 	
@@ -308,6 +330,8 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F2AYUDAR);
 			GameObject.Find("F2").renderer.enabled = false;
 			GameObject.Find("F2").collider.enabled = false;
+			contadorFantasmas++;
+			contadorExitos++;
 		}	
 	}
 	
@@ -344,11 +368,14 @@ function EventSwitch(comando : String){
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4AYUDAR);
 					GameObject.Find("F4").renderer.enabled = false;
 					GameObject.Find("F4").collider.enabled = false;
+					contadorFantasmas++;
+					contadorExitos++;
 				}
 				else if(inventario.enInventario(InventarioManager.ANILLO_PLATA)){
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4PAILA);
 					GameObject.Find("F4").renderer.enabled = false;
 					GameObject.Find("F4").collider.enabled = false;
+					contadorFantasmas++;
 				}
 				else
 					managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F4);
@@ -370,6 +397,8 @@ function EventSwitch(comando : String){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F5AYUDAR);
 				GameObject.Find("F5").renderer.enabled = false;
 				GameObject.Find("F5").collider.enabled = false;
+				contadorFantasmas++;
+				contadorExitos++;
 			}
 			else{
 				if(currentPlayer.getId() == Player_Manager.CRISTINA){

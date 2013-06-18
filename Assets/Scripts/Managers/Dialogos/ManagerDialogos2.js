@@ -2,6 +2,11 @@
 
 private var dialogosActivos : boolean;
 private var enOpcion: boolean = false;
+
+//============================================================================
+//Variables para las conversaciones
+//============================================================================
+
 private var conversacionActual : ArbolConversacion;
 private var conversacionGabriela : ArbolConversacion;
 private var conversacionConserje : ArbolConversacion;
@@ -35,6 +40,13 @@ private var conversacionPapel : ArbolConversacion;
 private var conversacionTerminarPapel : ArbolConversacion;
 private var conversacionSinPapel : ArbolConversacion;
 private var conversacionTaza : ArbolConversacion;
+private var conversacionExito : ArbolConversacion;
+private var conversacionFracaso : ArbolConversacion;
+private var conversacionCodigo : ArbolConversacion;
+
+//=====================================================================================================
+// Variables para el control de la ventana de dialogo
+//=====================================================================================================
 
 private var ventana : Rect = Rect(0,(Screen.height/2)+50, Screen.width,(Screen.height/3));
 private var textoActivo: String;
@@ -47,6 +59,10 @@ private var texturaActual2 : Texture2D;
 
 //Conexión con el LevelManager
 var manager : GameObject;
+
+//======================================================
+// Texturas para los dialogos
+//======================================================
 
 var customSkin: GUISkin;
 var texturaCristina: Texture2D;
@@ -68,6 +84,10 @@ var texturaF3Sombreada: Texture2D;
 var texturaF4Sombreada: Texture2D;
 var texturaF5Sombreada: Texture2D;
 var texturaF7Sombreada: Texture2D;
+
+//=================================================================
+// Constantes de control para lanzar las conversaciones
+//=================================================================
 
 public static final var CONVERSACION_GABRIELA  :int= 0;
 public static final var CONVERSACION_CONSERJE  :int= 1;
@@ -101,6 +121,9 @@ public static final var CONVERSACION_TAZA :int= 28;
 public static final var CONVERSACION_F7  :int= 29;
 public static final var CONVERSACION_F7AYUDAR  :int= 30;
 public static final var CONVERSACION_F7PAILA  :int= 31;
+public static final var CONVERSACION_EXITO  :int= 32;
+public static final var CONVERSACION_FRACASO  :int= 33;
+public static final var CONVERSACION_CODIGO  :int= 34;
 
 public static final var GABRIELA = 1;
 public static final var CONSERJE = 2;
@@ -140,6 +163,8 @@ function Start(){
  inicializarConversacionF7();
  inicializarConversacionF7Ayudar();
  inicializarConversacionF7Paila();
+ inicializarConversacionExito();
+ inicializarConversacionFracaso();
 }
 
 
@@ -208,6 +233,7 @@ function WindowFunction (windowID : int) {
 // ================================================================================
 // OnMouseDown
 // ================================================================================
+
 function Update(){
 var pausa : boolean = GetComponent(MenuManager).estaPausado();
 if(!pausa){
@@ -244,7 +270,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 // Metodos
 // ================================================================================
 
-
+// Switch para comenzar los dialogos
 function empezarDialogos(idConversacion:int ){
 GetComponent(MenuManager).setBotonesHabilitado(false);
 
@@ -437,12 +463,30 @@ inicializarConversacionTaza();
 conversacionActual = conversacionTaza;
 
 break;
+
+case CONVERSACION_EXITO:
+conversacionActual = conversacionExito;
+
+break;
+
+case CONVERSACION_FRACASO:
+conversacionActual = conversacionFracaso;
+
+break;
+
+case CONVERSACION_CODIGO:
+inicializarConversacionCodigo();
+conversacionActual = conversacionCodigo;
+
+break;
 }
 
 GetComponent(Player_Manager).getCurrentPlayer().getGameObject().GetComponent(MoverClick).MoverOff();
 
 dialogosActivos = true;
 }
+
+// Dibujo de la raiz de dialogo
 
 function dibujarDialogo(){
 
@@ -462,7 +506,7 @@ textoActivo = conversacionActual.getNodoActual().getTextoLinea();
 
 }
 
-
+//Dibujo de una opcion rama del árbol
 function dibujarOpcion(){
 textoOpcion1 = conversacionActual.getNodoActual().getHijo1().getTextoLinea();
 textoOpcion2 = conversacionActual.getNodoActual().getHijo2().getTextoLinea();
@@ -516,9 +560,23 @@ conversacionConserje = new ArbolConversacion(texturaCristina,texturaConserje,tex
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Aqui va un dialogo",1);
+var l: LineaDialogo = new LineaDialogo("Dios ¿Se encuentra usted bien?",1);
 dialogos.Push(l);
-l = new LineaDialogo("Aqui va una respuesta",2);
+l = new LineaDialogo("¿Quien está ahí?",2);
+dialogos.Push(l);
+l = new LineaDialogo("Pero si es solo una muchacha. Despreocupate por mi, deberia estar muerto desde hace mucho",2);
+dialogos.Push(l);
+l = new LineaDialogo("Gabriela me piedio que bajara, me dijo que necesitaba ayuda",1);
+dialogos.Push(l);
+l = new LineaDialogo("¿Gabriela? Ah, ya entiendo. Pero no, yo no soy quien necesita ayuda",2);
+dialogos.Push(l);
+l = new LineaDialogo("Pero si usted está muy malherido",1);
+dialogos.Push(l);
+l = new LineaDialogo("Esto no es nada, los que de verdad tienen problemas son los otros, los que ya murieron, \npero todavia no pueden desprenderse de este mundo",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Ellos son los que necesitan mi ayuda?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Si ¿Por que no te paseas por la morgue? Mira a quien puedes ayudar",2);
 dialogos.Push(l);
   
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos,CONSERJE);
@@ -552,10 +610,21 @@ conversacionF1 = new ArbolConversacion(texturaCristina,texturaF1,texturaCristina
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("No recuerdo donde está mi cuerpo",2);
+var l: LineaDialogo = new LineaDialogo("Es usted un... ¿Necesita algún tipo de ayuda?",1);
 dialogos.Push(l);
-l = new LineaDialogo("Uy grave, debe haber una forma de averiguarlo",1);
+l = new LineaDialogo("¿Ayuda? ¿Quieres ayudarme?",2);
 dialogos.Push(l);
+l = new LineaDialogo("Si, en lo que pueda. Solo quiero que usted logre descansar en paz",1);
+dialogos.Push(l);
+l = new LineaDialogo("¿Como quieres que descanse en paz si nisiquiera sé donde reposa mi cuerpo?",2);
+dialogos.Push(l);
+l = new LineaDialogo("Debe de estar en alguno de esto refrigeradores",1);
+dialogos.Push(l);
+l = new LineaDialogo("Pero ¿En cual? Llevo aquí un buen tiempo, pero simplemente no lo recuerdo.",2);
+dialogos.Push(l);
+l = new LineaDialogo("Bueno, trataré de averiguar donde se encuentra tu cuerpo",1);
+dialogos.Push(l);
+
   
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, FANTASMA1);
 
@@ -571,7 +640,11 @@ conversacionLockerF1 = new ArbolConversacion(texturaCristina,texturaGabriela,tex
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Si, aqui está el cuerpo",1);
+var l: LineaDialogo = new LineaDialogo("¿Será este el cuerpo que buscamos?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Tiene que ser, es el refrigerador que estaba en su memoria",2);
+dialogos.Push(l);
+l = new LineaDialogo("Contémosle al fantasma entonces",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -588,7 +661,7 @@ conversacionLockerVacio = new ArbolConversacion(texturaCristina,texturaGabriela,
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Aqui hay un cuerpo, squeeeee",1);
+var l: LineaDialogo = new LineaDialogo("Es un refrigerador de morgue. Aqui hay un cuerpo.",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -622,7 +695,11 @@ conversacionF1Ayudar = new ArbolConversacion(texturaCristina,texturaF1,texturaCr
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+var l: LineaDialogo = new LineaDialogo("Si, ese es mi cuerpo, lo recuerdo claramente... Dios, está horrible",2);
+dialogos.Push(l);
+l = new LineaDialogo("No esperarás que haga algo al respecto ¿Verdad?",1);
+dialogos.Push(l);
+l = new LineaDialogo("No, tranquila, ya has hecho suficiente por mi, ya puedo irme en paz",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -639,9 +716,15 @@ conversacionF2 = new ArbolConversacion(texturaCristina,texturaF2,texturaCristina
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Mi cuerpo está en la morgue 1, pero la puerta está trabada",2);
+var l: LineaDialogo = new LineaDialogo("Hola... Se te ve angustiado ¿Puedo hacer algo por ti?",1);
 dialogos.Push(l);
-l = new LineaDialogo("Hay que abrirla de alguna manera",1);
+l = new LineaDialogo("Es posible, si. Tu todavia puedes agarrar cosas",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Qué necesitas que haga?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Mi cuerpo está en el refrigerador 12 de la morgue 1, pero no tengo acceso a el, \nla puerta está trabada",2);
+dialogos.Push(l);
+l = new LineaDialogo("Entiendo... veré que puedo hacer.",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, FANTASMA2);
@@ -658,7 +741,9 @@ conversacionF2Ayudar = new ArbolConversacion(texturaCristina,texturaF2,texturaCr
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+var l: LineaDialogo = new LineaDialogo("Ya está, no fue fácil, pero logré abrir la puerta del refirgerador",1);
+dialogos.Push(l);
+l = new LineaDialogo("Te agradezco, de verdad necesitaba darle un último vistazo. Ya puedo irme en paz.",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -677,6 +762,8 @@ conversacionLockerF2 = new ArbolConversacion(texturaCristina,texturaGabriela,tex
 var dialogos : Array = new Array();
 var l: LineaDialogo = new LineaDialogo("Aquí está el locker, pero necesitaré algo para forzar la puerta",1);
 dialogos.Push(l);
+l = new LineaDialogo("¿Una palanca tal vez? Hay que buscar algo que se le parezca",2);
+dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -692,7 +779,7 @@ conversacionPalanca = new ArbolConversacion(texturaCristina,texturaGabriela,text
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Oh, una palanca",1);
+var l: LineaDialogo = new LineaDialogo("Esto puede que sirva como palanca.",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -709,8 +796,15 @@ conversacionF3 = new ArbolConversacion(texturaCristina,texturaF3,texturaCristina
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Perdí mi argolla de compromiso en esta estación, no te dejaré usarla\n hasta recuperarlo",2);
+var l: LineaDialogo = new LineaDialogo("Lo siento, pero no puedo dejarte usar esta estación",2);
 dialogos.Push(l);
+l = new LineaDialogo("¿Algún problema?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Mi argolla, la perdí allí. Mi esposa no me lo ha perdonado, y ahora no puedo pensar mas que en sacarla.",2);
+dialogos.Push(l);
+l = new LineaDialogo("Veré que puedo hacer, necesitaré algo para sacarlo.",1);
+dialogos.Push(l);
+
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
@@ -726,7 +820,9 @@ conversacionF3Ayudar = new ArbolConversacion(texturaCristina,texturaF3,texturaCr
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+var l: LineaDialogo = new LineaDialogo("Es este ¿Verdad?",1);
+dialogos.Push(l);
+l = new LineaDialogo("¡¡Si, es ese!! Volveré a ver sonreir a mi esposa, grácias.",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -743,7 +839,9 @@ conversacionAlambre = new ArbolConversacion(texturaCristina,texturaGabriela,text
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Oh, aqui hay un alambre",1);
+var l: LineaDialogo = new LineaDialogo("Aqui hay un alambre",1);
+dialogos.Push(l);
+l = new LineaDialogo("Cógelo, puede ser útil",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -760,7 +858,15 @@ conversacionF3Paila = new ArbolConversacion(texturaCristina,texturaF3,texturaCri
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Nooo, mi esposa no me perdonará",2);
+var l: LineaDialogo = new LineaDialogo("Es este ¿Verdad?",1);
+dialogos.Push(l);
+l = new LineaDialogo("... No, no es ese. El mio era de oro",2);
+dialogos.Push(l);
+l = new LineaDialogo("No puede ser, el alambre se a roto. Tal vez si...",1);
+dialogos.Push(l);
+l = new LineaDialogo("No te desgates, ya me acostumbré a fallarle a mi esposa. Puedo morir como un fracasado, \ngrácias por tu esfuerzo",2);
+dialogos.Push(l);
+l = new LineaDialogo("Esto no está bien...",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -777,7 +883,19 @@ conversacionF4 = new ArbolConversacion(texturaCristina,texturaF4,texturaCristina
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("No me iré hasta que mi esposo recupere la argolla",2);
+var l: LineaDialogo = new LineaDialogo("Disculpe, necesito pasar",1);
+dialogos.Push(l);
+l = new LineaDialogo("No pierdas tu tiempo, no pienso moverme de aquí",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Puedo preguntar por qué?",1);
+dialogos.Push(l);
+l = new LineaDialogo("No voy a permitir que el fracasado de mi marido se salga con la suya",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Ha hecho algo malo?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Perdio su argolla de matrimonio ¡Otra vez! No pienso irme de aquí hasta que la recupere, asi me muera aqui parada",2);
+dialogos.Push(l);
+l = new LineaDialogo("... Claro, la entinedo",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -794,9 +912,13 @@ conversacionF4Ayudar = new ArbolConversacion(texturaCristina,texturaF4,texturaCr
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Si, ese es el anillo, gracias",2);
+var l: LineaDialogo = new LineaDialogo("Su esporso me mandó para mostrarle esto",1);
 dialogos.Push(l);
-l = new LineaDialogo("Bueno, ya te puedes ir en paz",1);
+l = new LineaDialogo("¡Es su anillo, lo recuperó!",2);
+dialogos.Push(l);
+l = new LineaDialogo("Asi es",1);
+dialogos.Push(l);
+l = new LineaDialogo("Bien, no es un total fracaso despues de todo. Creo que ya puedo irme.",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -812,9 +934,17 @@ conversacionF4Paila = new ArbolConversacion(texturaCristina,texturaF4,texturaCri
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("No, ese no es,nooo",2);
+var l: LineaDialogo = new LineaDialogo("Su esporso me mandó para mostrarle esto",1);
 dialogos.Push(l);
-l = new LineaDialogo("Ahhh",1);
+l = new LineaDialogo("¿Qué es eso? ¿Alguna broma?",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿No es su anillo de matrominio?",1);
+dialogos.Push(l);
+l = new LineaDialogo("No, esa no es. El fracasado intenta engallame, pero ni siquiera le atinó al material correcto",2);
+dialogos.Push(l);
+l = new LineaDialogo("Lo siento tanto",1);
+dialogos.Push(l);
+l = new LineaDialogo("Tu no eres la que está casada. Creo que me iré, siento como se se me hubiera ido la vida aquí parada",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -831,7 +961,17 @@ conversacionF5 = new ArbolConversacion(texturaCristina,texturaF5,texturaCristina
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Temo por mi novia. No puedo irme sin saber si ella está en paz",2);
+var l: LineaDialogo = new LineaDialogo("Mmmm, ¿Será que te puedo molestar?",2);
+dialogos.Push(l);
+l = new LineaDialogo("Claro ¿En qué puedo ayudarte?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Se que estoy, bueno, muerto",2);
+dialogos.Push(l);
+l = new LineaDialogo("Si... creo que no puedo hacer nada al respecto",1);
+dialogos.Push(l);
+l = new LineaDialogo("No, no es eso. Temo es por mi novia. No la veo por ninguna parte. La verdad, \nme preocupa irme y dejarla a ella aquí sola.",2);
+dialogos.Push(l);
+l = new LineaDialogo("No te preocupes, yo la busco",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -848,7 +988,13 @@ conversacionF5Ayudar = new ArbolConversacion(texturaCristina,texturaF5,texturaCr
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Listo, ya te puedes ir en paz",1);
+var l: LineaDialogo = new LineaDialogo("Bueno... la encontré",1);
+dialogos.Push(l);
+l = new LineaDialogo("¿Y? ¿Qué pasó?",2);
+dialogos.Push(l);
+l = new LineaDialogo("Ya está descansando, creo que tu deberias hacer lo mismo",1);
+dialogos.Push(l);
+l = new LineaDialogo("Eso me alegra, la buscaré en el otro lado, seguro me recordará",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -924,13 +1070,21 @@ conversacionNoPuedeMatar = new ArbolConversacion(texturaCristina,texturaGabriela
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Hay que matar de alguna forma.",1);
+var l: LineaDialogo = new LineaDialogo("Tiene que ser ella, la novia del fantasma. ¿Que deberiamos hacer por ella?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Ayudarla",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Cómo? No se nada de medicina, y ella apenas si está viva",1);
+dialogos.Push(l);
+l = new LineaDialogo("Entonces ahorrale el sufrimiento, mátala",2);
+dialogos.Push(l);
+l = new LineaDialogo("Si, es lo mejor. ¿Cómo será mejor hacerlo?",1);
 dialogos.Push(l);
 l = new LineaDialogo("Ahógala",2);
 dialogos.Push(l);
 l = new LineaDialogo("¿Con qué?",1);
 dialogos.Push(l);
-l = new LineaDialogo("Algo nos ha de servir, busquemos por aquí",2);
+l = new LineaDialogo("Con una toalla puede ser. Si no tienes ninguna, algo nos ha de servir, busquemos por aquí",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1012,7 +1166,21 @@ conversacionF7 = new ArbolConversacion(texturaCristina,texturaF7,texturaCristina
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("No puedo creer que no me acuerde del nombre de mis hijos, o el de mi esposa",2);
+var l: LineaDialogo = new LineaDialogo("Disculpa... ¿Estas llorando?",1);
+dialogos.Push(l);
+var l: LineaDialogo = new LineaDialogo("Estoy muerto, claro que estoy llorando. Dios... mi esposa... mis hijos",2);
+dialogos.Push(l);
+l = new LineaDialogo("No tiene que ponerse así. Si guarda un recuerdo bonito de ellos, podrá atesorarlo el resto de su existencia",1);
+dialogos.Push(l);
+l = new LineaDialogo("Un recuerdo, claro.... pero",2);
+dialogos.Push(l);
+l = new LineaDialogo("Pero...¿Qué?",1);
+dialogos.Push(l);
+l = new LineaDialogo("¡Sus nombres, no los recuerdo!",2);
+dialogos.Push(l);
+l = new LineaDialogo("Quisas pueda ayudarlo de alguna manera",1);
+dialogos.Push(l);
+l = new LineaDialogo("Claro que si. Sus nombres, dime cuales son sus nombres",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, F7_PUZZLE);
@@ -1028,7 +1196,7 @@ conversacionF7Ayudar = new ArbolConversacion(texturaCristina,texturaF7,texturaCr
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Si, esos son, ya me acuerdo. Ya puedo irme en paz",2);
+var l: LineaDialogo = new LineaDialogo("¡Si, esos son, ya me acuerdo! Gracias, es imposible que se me vuelvan a olvidar",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
@@ -1044,9 +1212,83 @@ conversacionF7Paila = new ArbolConversacion(texturaCristina,texturaF7,texturaCri
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("No, esos no son. Vuelve a intentar",2);
+var l: LineaDialogo = new LineaDialogo("No, no me suenan, esos no son.",2);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, F7_PUZZLE);
 conversacionF7Paila.setRaiz(nodoRaiz);
+}
+
+//Conversacion de exito con el conserje
+function inicializarConversacionExito(){
+conversacionExito = new ArbolConversacion(texturaCristina,texturaConserje,texturaCristinaSombreada,texturaConserjeSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Listo, todos los fantasma descansan ahora sin ningun remordimiento",1);
+dialogos.Push(l);
+l = new LineaDialogo("Si, es verdad, se siente mucha más paz en este lugar",2);
+dialogos.Push(l);
+l = new LineaDialogo("¿Y ahora qué?",1);
+dialogos.Push(l);
+l = new LineaDialogo("Bueno, ya has ayudado a todos los que podias, creo que es hora de que tu tambien descanses",2);
+dialogos.Push(l);
+l = new LineaDialogo("... Si, tienes razon... ya es hora",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionExito.setRaiz(nodoRaiz);
+}
+
+//Conversacion de exito con el conserje
+function inicializarConversacionFracaso(){
+conversacionFracaso = new ArbolConversacion(texturaCristina,texturaConserje,texturaCristinaSombreada,texturaConserjeSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Ya he hablado con todos, pero...",1);
+dialogos.Push(l);
+l = new LineaDialogo("Si, hay algo extraño. Ya no veo fantasmas, pero todavía no siento paz en este lugar",2);
+dialogos.Push(l);
+l = new LineaDialogo("Es mi culpa, no he podido ayudar correctamente a nadie. Soy un fracaso.",1);
+dialogos.Push(l);
+l = new LineaDialogo("No te atormentes así, hiciste lo que podiste. Solo falta que tu descanses, si creo que eso es lo que falta",2);
+dialogos.Push(l);
+l = new LineaDialogo("... Si, tal vez tengas razon",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionFracaso.setRaiz(nodoRaiz);
+}
+
+//Conversacion de exito con el conserje
+function inicializarConversacionCodigo(){
+conversacionCodigo = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+/**
+* Nodo Raiz
+* 
+*/
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Creo que ha muerto",1);
+dialogos.Push(l);
+l = new LineaDialogo("No, solo ahorra fuerzas",2);
+dialogos.Push(l);
+l = new LineaDialogo("Creo.. creo que tiene algo en la mano. Lo está sujetando con fuerza",1);
+dialogos.Push(l);
+l = new LineaDialogo("Tal vez sea importante",2);
+dialogos.Push(l);
+l = new LineaDialogo("Es un papel, tien algo escrito. ''Codigo caja fuerte en la oficina: 181651'' ¿Que significa eso?",1);
+dialogos.Push(l);
+l = new LineaDialogo("No lo se, es posible que signifique algo para otra persona.",2);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionCodigo.setRaiz(nodoRaiz);
 }
