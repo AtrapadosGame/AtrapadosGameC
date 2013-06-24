@@ -11,6 +11,9 @@ private var alto : int;
 var customSkin: GUISkin;
 var texturaVacia : Texture2D;
 private var lastTooltip : String =  "";
+private var ventana : Rect = Rect(Screen.width/4,Screen.height/4, Screen.width/2,(Screen.height/2));
+private var eliminarActivo : boolean = false;
+private var itemEliminar : int = -1;
 
 public static final var PALA : int = 0;
 public static final var EXTINTOR : int = 1;
@@ -45,6 +48,7 @@ function Start () {
  
 function OnGUI () {
 
+
 GUI.skin = customSkin;
 var pausa : boolean = GetComponent(MenuManager).estaPausado();
 var botonesHabilitados : boolean = GetComponent(MenuManager).estaBotonesHabilitado();
@@ -52,13 +56,19 @@ var botonesHabilitados : boolean = GetComponent(MenuManager).estaBotonesHabilita
 if(!pausa&&botonesHabilitados){
 for(var i:int = 0 ; i <4 ; i++){
 	if (itemsActuales[i]){
-		GUI.Box(new Rect(i*ancho,Screen.height - alto,ancho,alto), GUIContent(itemsActuales[i].getTextura(), "Button"));
+		if(GUI.Button(new Rect(i*ancho,Screen.height - alto,ancho,alto), GUIContent(itemsActuales[i].getTextura(), "Button"))){
+			eliminarActivo = true;
+			itemEliminar = itemsActuales[i].getId();
+		}
 	}
 	else{
 		GUI.Box(new Rect(i*ancho,Screen.height - alto,ancho,alto), GUIContent(texturaVacia, "Button"));
 	}
 }
-
+	
+	if(eliminarActivo){
+		ventana = GUI.Window(0,ventana , WindowFunction,"");
+	}
 
 	if (Event.current.type == EventType.Repaint && GUI.tooltip != lastTooltip) 
 {
@@ -70,6 +80,28 @@ for(var i:int = 0 ; i <4 ; i++){
 }
 
 	}	
+}
+
+
+function WindowFunction (windowID : int) {
+GUI.Label(new Rect(ventana.width/2,10,ancho,alto), "¿Eliminar este item?");
+	if(GUI.Button(new Rect(ventana.width/3,alto+100,ancho,alto),GUIContent("Eliminar", "Button"))){
+		usarItem(itemEliminar);
+		itemEliminar = -1;
+		eliminarActivo = false;	
+	}
+	if(GUI.Button(new Rect(2*ventana.width/3,alto+100,ancho,alto),GUIContent("Cancelar", "Button"))){
+		eliminarActivo = false;	
+	}
+	
+	if (Event.current.type == EventType.Repaint && GUI.tooltip != lastTooltip) 
+	{
+            if (lastTooltip != "")
+                SendMessage (lastTooltip + "OnMouseOut", SendMessageOptions.DontRequireReceiver);
+            if (GUI.tooltip != "")
+                SendMessage (GUI.tooltip + "OnMouseOver", SendMessageOptions.DontRequireReceiver);
+            lastTooltip = GUI.tooltip;
+	}
 }
 
 // ================================================================================

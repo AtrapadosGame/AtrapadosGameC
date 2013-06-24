@@ -1168,7 +1168,7 @@ conversacionF7 = new ArbolConversacion(texturaCristina,texturaF7,texturaCristina
 var dialogos : Array = new Array();
 var l: LineaDialogo = new LineaDialogo("Disculpa... ¿Estas llorando?",1);
 dialogos.Push(l);
-var l: LineaDialogo = new LineaDialogo("Estoy muerto, claro que estoy llorando. Dios... mi esposa... mis hijos",2);
+l = new LineaDialogo("Estoy muerto, claro que estoy llorando. Dios... mi esposa... mis hijos",2);
 dialogos.Push(l);
 l = new LineaDialogo("No tiene que ponerse así. Si guarda un recuerdo bonito de ellos, podrá atesorarlo el resto de su existencia",1);
 dialogos.Push(l);
