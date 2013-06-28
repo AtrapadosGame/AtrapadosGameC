@@ -74,5 +74,11 @@ function MoverOn(){
 	mover = true;
 }
 
+function inicializarValores(bounceArg: float, speedArg: float){
+speed = speedArg; 
+bounceDistance = bounceArg;
+
+}
+
 
 

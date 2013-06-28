@@ -538,7 +538,7 @@ switch(idConversacion){
 		}
 		inicializarConversacionPlayer7(texturaPlayer);
 		conversacionActual = conversacionPlayer7;
-		dibujarDialogo();
+		
 	break;
 			
 	case CONVERSACION_PLAYER8:
@@ -1206,7 +1206,7 @@ function inicializarConversacionPlayer8(textura:Texture2D)
 	* 
 	*/
 	var dialogos : Array = new Array();
-	var l: LineaDialogo = new LineaDialogo("¡Cristina puede\ntrepar por esa ventanilla y abrirla desde el otro lado!",1);
+	var l: LineaDialogo = new LineaDialogo("¡Cristina puede trepar por esa ventanilla y abrirla desde el otro lado!",1);
 	dialogos.Push(l);
  	var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 
