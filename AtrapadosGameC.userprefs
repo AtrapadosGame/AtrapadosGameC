@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SM2/Plugins/Sprite Scripts/PackedSprite.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Interactores/Interactor_Click.js">
     <Files>
       <File FileName="Assets/SM2/Plugins/Sprite Scripts/PackedSprite.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Interactores/Interactor_Click.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
