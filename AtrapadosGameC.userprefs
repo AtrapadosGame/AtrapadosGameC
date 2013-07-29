@@ -1,9 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Interactores/Interactor_Click.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\LevelManager\Manager2.js">
     <Files>
-      <File FileName="Assets/SM2/Plugins/Sprite Scripts/PackedSprite.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Interactores/Interactor_Click.js" Line="1" Column="1" />
+      <File FileName="Assets\SM2\Plugins\Sprite Scripts\PackedSprite.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interactores\Interactor_Click.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="595" Column="54" />
+      <File FileName="Assets\Scripts\MoverClick.js" Line="80" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

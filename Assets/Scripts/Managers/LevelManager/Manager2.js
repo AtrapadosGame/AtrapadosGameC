@@ -592,6 +592,7 @@ case ManagerDialogos2.GABRIELA:
 	var pl : GameObject = GameObject.Find("Gabriela");
 	pl.AddComponent(MoverClick);
 	pl.GetComponent(Interactor_Click).FlagOff();
+	pl.GetComponent(MoverClick).inicializarValores(0.1, 1);
 	pl.renderer.enabled = false;
 	pl.collider.enabled = false;
 break;
