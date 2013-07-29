@@ -130,7 +130,7 @@ function EventTrigger(objName : String){
 		yield WaitForSeconds(1);
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_FABIO_DARIO1);
 		//GameObject.Find("FabioTrigger").GetComponent(Interactor_Trigger).apagar();
-		yield WaitForSeconds(0.02);
+		yield WaitForSeconds(2);
 		var der = GameObject.Find("Derrumbe");
 		der.renderer.enabled = true;
 		der.collider.enabled = true;
