@@ -244,7 +244,9 @@ function EventTrigger(objName : String){
 // ================================================================================
 //Imlementación de la funcion Switch()
 function EventSwitch(comando : String){
+
 	currentPlayer = playerManager.getCurrentPlayer();
+	
 	//Hablar a gabriela apenas empieza el nivel
 	if(comando.Equals("Gabriela")){
 	
