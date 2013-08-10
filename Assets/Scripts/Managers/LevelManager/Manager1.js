@@ -153,14 +153,14 @@ function EventTrigger(objName : String){
 		var fabio : boolean = playerManager.estaPersonaje(Player_Manager.FABIO);
 		var diana : boolean = playerManager.estaPersonaje(Player_Manager.DIANA);
 		var cris : boolean = playerManager.estaPersonaje(Player_Manager.CRISTINA);
-		print(fabio + " " + diana + " " + cris);
 		if(fabio && diana && cris){
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER5);
 			GameObject.Find("SalidaATrigger").GetComponent(Interactor_Trigger).apagar();
-			
+			Destroy(GameObject.Find("LuzSalidaA"));
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER4);
+			GameObject.Find("SalidaATrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}
 	}
 	
@@ -177,17 +177,16 @@ function EventTrigger(objName : String){
 			der2.audio.Play();
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER6);
 			GameObject.Find("LuzSalidaB").transform.position = new Vector3(-10.3,0.5,-12);
-			//GameObject.Find("SalidaB").GetComponent(Interactor_Trigger).apagar();
-			
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER4);
+			GameObject.Find("SalidaATrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}
 	}
 	
 	if(objName.Equals("Final")){
 		managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER11);
-		Application.LoadLevel("Nivel1-5");
+		
 	}
 	
 	if(objName.Equals("Fantasma")){
@@ -404,6 +403,20 @@ if(comando.Equals("Emergencia")){
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER7);
 		}
 	}
+}
+}
+
+
+//Se llama como resultado(al finalizar) de un dialogo, no todos los dialogos tiene resultado*
+//Implementación de la función IEventDialog
+function EventDialog(idResultado : int){
+print("Evento!!!!!!!!!!!!");
+switch(idResultado){
+
+case ManagerDialogos1.FINAL:
+print("fin nivel!!!!!!!!!!");
+	Application.LoadLevel("FinalN1");
+break;
 }
 }
 
