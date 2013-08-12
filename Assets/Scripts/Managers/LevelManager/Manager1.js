@@ -180,7 +180,7 @@ function EventTrigger(objName : String){
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos1.CONVERSACION_PLAYER4);
-			GameObject.Find("SalidaATrigger").GetComponent(Interactor_Trigger).Reactivar();
+			GameObject.Find("SalidaBTrigger").GetComponent(Interactor_Trigger).Reactivar();
 		}
 	}
 	
