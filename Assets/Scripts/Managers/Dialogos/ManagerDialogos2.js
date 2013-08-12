@@ -131,6 +131,7 @@ public static final var FANTASMA1 = 3;
 public static final var FANTASMA2 = 4;
 public static final var MATAR_NOVIA = 5;
 public static final var F7_PUZZLE = 6;
+public static final var FINAL = 7;
 
 // ================================================================================
 // OnCreate
@@ -1239,7 +1240,7 @@ dialogos.Push(l);
 l = new LineaDialogo("... Si, tienes razon... ya es hora",1);
 dialogos.Push(l);
 
-var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, FINAL);
 conversacionExito.setRaiz(nodoRaiz);
 }
 
@@ -1263,7 +1264,7 @@ dialogos.Push(l);
 l = new LineaDialogo("... Si, tal vez tengas razon",1);
 dialogos.Push(l);
 
-var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos, FINAL);
 conversacionFracaso.setRaiz(nodoRaiz);
 }
 

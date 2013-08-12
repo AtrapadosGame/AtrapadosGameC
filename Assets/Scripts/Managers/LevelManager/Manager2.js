@@ -32,6 +32,8 @@ var texturaAnilloOro : Texture2D;
 var texturaAnilloPlata : Texture2D;
 var texturaPapelHigienico : Texture2D;
 
+var siguienteNivel : String;
+
 // ================================================================================
 // FLAGS
 // ================================================================================
@@ -251,11 +253,13 @@ function EventSwitch(comando : String){
 	if(comando.Equals("Gabriela")){
 	
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_GABRIELA);
+		GameObject.Find("Gabriela").GetComponent(Interactor_Click).FlagOff();
 	}
 	if(comando.Equals("Puzzle")){
 		if(flagConserje){
 			if(currentPlayer.getId() == Player_Manager.CRISTINA){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7);
+				GameObject.Find("TestPuzzle").GetComponent(Interactor_Click).FlagOff();
 			}
 			else{
 				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
@@ -423,9 +427,12 @@ function EventSwitch(comando : String){
 		if(flagHabloF5){
 			if(inventario.enInventario(InventarioManager.TOALLA)){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_MATARTOALLA);
+				GameObject.Find("Novia").GetComponent(Interactor_Click).FlagOff();
+				
 			}
 			else if(inventario.enInventario(InventarioManager.PAPEL_HIGIENICO)){
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_MATARPAPEL);
+				GameObject.Find("Novia").GetComponent(Interactor_Click).FlagOff();
 			}
 			else
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_NOPUEDEMATAR);
@@ -439,6 +446,7 @@ function EventSwitch(comando : String){
 		if(flagFCuerpo){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_LOCKERF1);
 			flagEncontrarCuerpoF1 = true;
+			GameObject.Find("LockerF1").GetComponent(Interactor_Click).FlagOff();
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_VACIO);
@@ -456,6 +464,7 @@ function EventSwitch(comando : String){
 				cinematica3 = false;
 				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
 				flagRescatarCuerpoF2 = true;
+				GameObject.Find("LockerF2").GetComponent(Interactor_Click).FlagOff();
 			}
 			else
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_LOCKERF2);
@@ -472,11 +481,13 @@ function EventSwitch(comando : String){
 	if(comando.Equals("LockerPalanca")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_PALANCA);
 		inventario.addItem(new Item(texturaPalanca, inventario.PALANCA));
+		GameObject.Find("LockerPalanca").GetComponent(Interactor_Click).FlagOff();
 	}
 	// Lavabo con el alambre
 	if(comando.Equals("Alambre")){
 		managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_ALAMBRE);
 		inventario.addItem(new Item(texturaAlambre, inventario.ALAMBRE));
+		GameObject.Find("CajaAlambre").GetComponent(Interactor_Click).FlagOff();
 	}
 	//Baño con papel higiénico
 	if(comando.Equals("Papel1")){
@@ -622,6 +633,10 @@ break;
 
 case ManagerDialogos2.F7_PUZZLE:
 	puzzle.empezarPuzzle();
+break;
+
+case ManagerDialogos2.FINAL:
+	Application.LoadLevel(siguienteNivel);
 break;
 }
 

@@ -36,6 +36,8 @@ var texturaCuadroDiana : Texture2D;
 var texturaCuadroMario : Texture2D;
 var texturaCuadroFrancisco : Texture2D;
 
+var siguienteNivel : String;
+
 
 // ================================================================================
 // Awake
@@ -107,7 +109,7 @@ function EventSwitch(comando : String){
 	if(comando.Equals("CambioLevel")){
 	persitance.finalizarNivel(inventario.getItemsActuales(), playerManager.getPlayers());
 	Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
-	    Application.LoadLevel ("Nivel2");
+	    Application.LoadLevel (siguienteNivel);
 	
 	}
 	
