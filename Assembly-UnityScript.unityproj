@@ -81,28 +81,10 @@
      <Compile Include="Assets\Scripts\Unity Scripts\Mouse\MouseOrbit(unused).js" />
      <Compile Include="Assets\Scripts\Unity Scripts\Mouse\SmoothFollow.js" />
      <Compile Include="Assets\Scripts\Unity Scripts\Mouse\SmoothLookAt(Unused).js" />
-     <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
-     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
-     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\SM2\Plugins\AnBSoft Common\Standard Shaders\Sprite Vertex Colored, Fast.shader" />
      <None Include="Assets\SM2\Plugins\AnBSoft Common\Standard Shaders\Sprite Simple Texture .shader" />
-     <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularSmooth.shader" />
-     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\SM2\Plugins\AnBSoft Common\Standard Shaders\Sprite Cutout.shader" />
-     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
-     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
-     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
-     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
-     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
-     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\SM2\Plugins\AnBSoft Common\Standard Shaders\Sprite Vertex Colored.shader" />
-     <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularDisplacement.shader" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{ADE3499D-6FAB-7446-9C12-2C6E636FA731}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{3A9D0FF0-9116-659D-9AA7-DD8138E720E1}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
