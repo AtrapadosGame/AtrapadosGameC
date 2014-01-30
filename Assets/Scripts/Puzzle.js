@@ -152,9 +152,10 @@ for(var i:int = 0 ; i <3 && !esDiferente; i++){
 	
 	}
 }
-
-
 return !esDiferente;
+
+
+//return true;
 }
 
 function verificarCantidadSeleccionados(){

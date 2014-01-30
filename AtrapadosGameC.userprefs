@@ -1,6 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Puzzle.js">
+    <Files>
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Managers\LevelManager\Manager2.js" Line="600" Column="65" />
+      <File FileName="Assets\Scripts\Puzzle.js" Line="39" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -542,7 +542,7 @@ conversacionGabriela = new ArbolConversacion(texturaCristina,texturaGabriela,tex
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bueno, aquí estoy ¿Cómo puedo ayudar a los seres que mencionas?",1);
+var l: LineaDialogo = new LineaDialogo("Bueno, aquí estoy ¿Cómo puedo ayudar a los seres que mencionas, Bueno, aquí estoy ¿Cómo puedo ayudar a los seres que mencionas",1);
 dialogos.Push(l);
 l = new LineaDialogo("Tranquila, hay que encontrar primero al conserje. Yo te sigo",2);
 dialogos.Push(l);

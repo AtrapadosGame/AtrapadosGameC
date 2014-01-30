@@ -491,6 +491,7 @@ function EventSwitch(comando : String){
 	}
 	//Baño con papel higiénico
 	if(comando.Equals("Papel1")){
+	print("PAPEL 1111");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza1").GetComponent(Interactor_Click).FlagOff();
@@ -499,6 +500,7 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
 	}
 	if(comando.Equals("Papel2")){
+	print("PAPEL 2222");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza2").GetComponent(Interactor_Click).FlagOff();
@@ -508,6 +510,7 @@ function EventSwitch(comando : String){
 			
 	}
 	if(comando.Equals("Papel3")){
+	print("PAPEL 3333");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza3").GetComponent(Interactor_Click).FlagOff();
@@ -516,6 +519,7 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
 	}
 	if(comando.Equals("Papel4")){
+	print("PAPEL 44444");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza4").GetComponent(Interactor_Click).FlagOff();
