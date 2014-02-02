@@ -43,6 +43,7 @@ private var conversacionTaza : ArbolConversacion;
 private var conversacionExito : ArbolConversacion;
 private var conversacionFracaso : ArbolConversacion;
 private var conversacionCodigo : ArbolConversacion;
+private var conversacionPuertaDesinfectada : ArbolConversacion;
 
 //=====================================================================================================
 // Variables para el control de la ventana de dialogo
@@ -124,6 +125,7 @@ public static final var CONVERSACION_F7PAILA  :int= 31;
 public static final var CONVERSACION_EXITO  :int= 32;
 public static final var CONVERSACION_FRACASO  :int= 33;
 public static final var CONVERSACION_CODIGO  :int= 34;
+public static final var PUERTA_DESINFECTADA  :int= 35;
 
 public static final var GABRIELA = 1;
 public static final var CONSERJE = 2;
@@ -166,6 +168,7 @@ function Start(){
  inicializarConversacionF7Paila();
  inicializarConversacionExito();
  inicializarConversacionFracaso();
+ inicializarPuertaDesinfectada();
 }
 
 
@@ -273,6 +276,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
 // Switch para comenzar los dialogos
 function empezarDialogos(idConversacion:int ){
+GameObject.Find("MusicaDialogo").audio.Play();
 GetComponent(MenuManager).setBotonesHabilitado(false);
 
 switch(idConversacion){
@@ -307,9 +311,9 @@ conversacionActual = conversacionF1Ayudar;
 break;
 
 case CONVERSACION_LOCKERF1:
-
+inicializarConversacionLockerF1();
 conversacionActual = conversacionLockerF1;
-
+inicializarConversacionLockerF2();
 break;
 
 case CONVERSACION_F2:
@@ -324,7 +328,6 @@ conversacionActual = conversacionF2Ayudar;
 break;
 
 case CONVERSACION_LOCKERF2:
-inicializarConversacionLockerF2();
 conversacionActual = conversacionLockerF2;
 
 break;
@@ -408,6 +411,12 @@ break;
 case CONVERSACION_DESINFECTAR:
 inicializarConversacionSinDesinfectar();
 conversacionActual = conversacionSinDesinfectar;
+
+break;
+
+case PUERTA_DESINFECTADA:
+inicializarPuertaDesinfectada();
+conversacionActual = conversacionPuertaDesinfectada;
 
 break;
 
@@ -1292,4 +1301,15 @@ dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
 conversacionCodigo.setRaiz(nodoRaiz);
+}
+
+function inicializarPuertaDesinfectada(){
+conversacionPuertaDesinfectada = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
+
+var dialogos : Array = new Array();
+var l: LineaDialogo = new LineaDialogo("Creo que acabo de desinfectar la estacion",1);
+dialogos.Push(l);
+
+var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
+conversacionPuertaDesinfectada.setRaiz(nodoRaiz);
 }

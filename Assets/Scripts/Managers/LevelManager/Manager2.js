@@ -34,6 +34,9 @@ var texturaPapelHigienico : Texture2D;
 
 var siguienteNivel : String;
 
+var f1solucionado : boolean = false;
+var f2solucionado : boolean = false;
+var f7solucionado : boolean = false;
 // ================================================================================
 // FLAGS
 // ================================================================================
@@ -233,6 +236,11 @@ function EventTrigger(objName : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7AYUDAR);
 			GameObject.Find("F7").renderer.enabled = false;
 			GameObject.Find("F7").collider.enabled = false;
+			if(f1solucionado && f2solucionado){
+			Application.Quit();
+			}else{
+			f7solucionado=true;
+			}
 			contadorFantasmas++;
 			contadorExitos++;
 	}
@@ -310,6 +318,11 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F1AYUDAR);
 			GameObject.Find("F1").renderer.enabled = false;
 			GameObject.Find("F1").collider.enabled = false;
+			if(f2solucionado && f7solucionado){
+			Application.Quit();
+			}else{
+			f1solucionado=true;
+			}			
 			contadorFantasmas++;
 			contadorExitos++;
 		}	
@@ -336,6 +349,11 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F2AYUDAR);
 			GameObject.Find("F2").renderer.enabled = false;
 			GameObject.Find("F2").collider.enabled = false;
+			if(f1solucionado && f7solucionado){
+			Application.Quit();
+			}else{
+			f2solucionado=true;
+			}	
 			contadorFantasmas++;
 			contadorExitos++;
 		}	
@@ -457,6 +475,8 @@ function EventSwitch(comando : String){
 		if(flagFTrabado){
 			var pala : boolean =inventario.enInventario(InventarioManager.PALA);
 			var palanca : boolean = inventario.enInventario(InventarioManager.PALANCA);
+			Debug.Log(pala);
+			Debug.Log(palanca);			
 			if(pala || palanca){
 				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOff();
 				cinematica3 = true;
@@ -465,9 +485,9 @@ function EventSwitch(comando : String){
 				currentPlayer.getGameObject().GetComponent(MoverClick).MoverOn();
 				flagRescatarCuerpoF2 = true;
 				GameObject.Find("LockerF2").GetComponent(Interactor_Click).FlagOff();
-			}
-			else
+			}else{
 				managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_LOCKERF2);
+				}
 		}
 		else{
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_VACIO);
@@ -491,7 +511,6 @@ function EventSwitch(comando : String){
 	}
 	//Baño con papel higiénico
 	if(comando.Equals("Papel1")){
-	print("PAPEL 1111");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza1").GetComponent(Interactor_Click).FlagOff();
@@ -500,7 +519,6 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
 	}
 	if(comando.Equals("Papel2")){
-	print("PAPEL 2222");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza2").GetComponent(Interactor_Click).FlagOff();
@@ -510,7 +528,6 @@ function EventSwitch(comando : String){
 			
 	}
 	if(comando.Equals("Papel3")){
-	print("PAPEL 3333");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza3").GetComponent(Interactor_Click).FlagOff();
@@ -519,7 +536,6 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_TAZA);
 	}
 	if(comando.Equals("Papel4")){
-	print("PAPEL 44444");
 		if(flagHabloF5){
 			CogerPapel();
 			GameObject.Find("Taza4").GetComponent(Interactor_Click).FlagOff();
@@ -591,6 +607,7 @@ function EventSwitch(comando : String){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_DESINFECTAR);	
 	}
 	if(comando.Equals("Estacion")){
+		managerDialogos.empezarDialogos(ManagerDialogos2.PUERTA_DESINFECTADA);	
 		print("presiono la estacion");
 		desinfectado = true;
 	}	
