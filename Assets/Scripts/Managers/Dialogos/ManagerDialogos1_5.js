@@ -186,6 +186,7 @@ if(dialogosActivos && Input.GetKeyDown(KeyCode.Mouse0) && !enOpcion){
 
 
 function empezarDialogos(idConversacion:int ){
+GameObject.Find("MusicaDialogo").audio.Play();
 GetComponent(MenuManager).setBotonesHabilitado(false);
 print("empezarDialogos");
 

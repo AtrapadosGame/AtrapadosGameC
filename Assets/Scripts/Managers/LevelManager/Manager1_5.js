@@ -50,6 +50,7 @@ lootManager = GetComponent(LootManager1_5);
 inventario = GetComponent(InventarioManager);
 persitance = GameObject.Find("Persistance").GetComponent(Persistance);
 playerManager.addPlayer(new Player(texturaCuadroCristina,Player_Manager.CRISTINA, "Cristina" , texturaCursorCristina));
+GameObject.Find("MusicaFondo").audio.Play();
 }
 
 // ================================================================================

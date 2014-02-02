@@ -1,12 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\AtrapadosGameB\Assets\Scripts\Managers\LevelManager\Manager1_5.js">
     <Files>
-      <File FileName="..\AtrapadosTercerNivel\Assets\Scripts\Managers\LevelManagers\Manager1.js" Line="133" Column="55" />
-      <File FileName="Assets\Scripts\Managers\Player_Manager.js" Line="83" Column="56" />
-      <File FileName="..\AtrapadosTercerNivel\Assets\Scripts\Managers\Player_Manager.js" Line="84" Column="3" />
-      <File FileName="Assets\Scripts\Managers\Dialogos\ManagerDialogos2.js" Line="286" Column="40" />
-      <File FileName="..\AtrapadosTercerNivel\Assets\Scripts\Managers\Dialogos\ManagerDialogos1.js" Line="270" Column="55" />
+      <File FileName="..\AtrapadosGameB\Assets\Scripts\Managers\LevelManager\Manager1_5.js" Line="110" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
