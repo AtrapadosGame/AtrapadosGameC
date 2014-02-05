@@ -72,6 +72,9 @@ managerDialogos = GetComponent(ManagerDialogos2);
 lootManager = GetComponent(LootManager2);
 inventario = GetComponent(InventarioManager);
 persistance = GameObject.Find("Persistance").GetComponent(Persistance);
+GameObject.Find("Estacion1").GetComponent(Interactor_Click).FlagOff();
+GameObject.Find("Estacion2").GetComponent(Interactor_Click).FlagOff();
+GameObject.Find("Estacion3").GetComponent(Interactor_Click).FlagOff();
 
 puzzle = GetComponent(Puzzle);
 puzzleAlambre = GetComponent(PuzzleAlambre);
@@ -224,6 +227,9 @@ function EventTrigger(objName : String){
 			contadorFantasmas++;
 			contadorExitos++;
 			inventario.addItem(new Item(texturaAnilloOro, inventario.ANILLO_ORO));
+			GameObject.Find("Estacion1").GetComponent(Interactor_Click).FlagOn();
+			GameObject.Find("Estacion2").GetComponent(Interactor_Click).FlagOn();
+			GameObject.Find("Estacion3").GetComponent(Interactor_Click).FlagOn();
 	}
 	if(objName.Equals("AnilloPlata")){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F3PAILA);
@@ -231,6 +237,9 @@ function EventTrigger(objName : String){
 			GameObject.Find("F3").collider.enabled = false;
 			inventario.addItem(new Item(texturaAnilloPlata, inventario.ANILLO_PLATA));
 			contadorFantasmas++;
+			GameObject.Find("Estacion1").GetComponent(Interactor_Click).FlagOn();
+			GameObject.Find("Estacion2").GetComponent(Interactor_Click).FlagOn();
+			GameObject.Find("Estacion3").GetComponent(Interactor_Click).FlagOn();
 	}
 	if(objName.Equals("SolucionCorrecta")){
 			managerDialogos.empezarDialogos(ManagerDialogos2.CONVERSACION_F7AYUDAR);

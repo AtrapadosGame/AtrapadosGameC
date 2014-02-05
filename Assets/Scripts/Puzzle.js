@@ -139,20 +139,21 @@ puzzleActivo = true;
 
 
 function esSolucion() : boolean{
-
-var esDiferente: boolean= false;
-for(var i:int = 0 ; i <3 && !esDiferente; i++){
-
-	for(var j:int = 0 ; j <3  && !esDiferente; j++){
-
-		if(puzzle[i,j] != SOLUCION[i,j]){
-		
-		 esDiferente = true;
-		 } 
-	
-	}
-}
-return !esDiferente;
+//
+//var esDiferente: boolean= false;
+//for(var i:int = 0 ; i <3 && !esDiferente; i++){
+//
+//	for(var j:int = 0 ; j <3  && !esDiferente; j++){
+//
+//		if(puzzle[i,j] != SOLUCION[i,j]){
+//		
+//		 esDiferente = true;
+//		 } 
+//	
+//	}
+//}
+//return !esDiferente;
+return true;
 
 
 //return true;

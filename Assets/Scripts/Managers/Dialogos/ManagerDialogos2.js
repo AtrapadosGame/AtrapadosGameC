@@ -551,7 +551,7 @@ conversacionGabriela = new ArbolConversacion(texturaCristina,texturaGabriela,tex
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Bueno, aquí estoy ¿Cómo puedo ayudar a los seres que mencionas, Bueno, aquí estoy ¿Cómo puedo ayudar a los seres que mencionas",1);
+var l: LineaDialogo = new LineaDialogo("Bueno, aquí estoy ¿Cómo puedo ayudar a los seres que mencionas",1);
 dialogos.Push(l);
 l = new LineaDialogo("Tranquila, hay que encontrar primero al conserje. Yo te sigo",2);
 dialogos.Push(l);
@@ -576,7 +576,7 @@ l = new LineaDialogo("¿Quien está ahí?",2);
 dialogos.Push(l);
 l = new LineaDialogo("Pero si es solo una muchacha. Despreocupate por mi, deberia estar muerto desde hace mucho",2);
 dialogos.Push(l);
-l = new LineaDialogo("Gabriela me piedio que bajara, me dijo que necesitaba ayuda",1);
+l = new LineaDialogo("Gabriela me pidio que bajara, me dijo que necesitaba ayuda",1);
 dialogos.Push(l);
 l = new LineaDialogo("¿Gabriela? Ah, ya entiendo. Pero no, yo no soy quien necesita ayuda",2);
 dialogos.Push(l);
@@ -922,7 +922,7 @@ conversacionF4Ayudar = new ArbolConversacion(texturaCristina,texturaF4,texturaCr
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Su esporso me mandó para mostrarle esto",1);
+var l: LineaDialogo = new LineaDialogo("Su esposo me mandó para mostrarle esto",1);
 dialogos.Push(l);
 l = new LineaDialogo("¡Es su anillo, lo recuperó!",2);
 dialogos.Push(l);
@@ -1307,7 +1307,7 @@ function inicializarPuertaDesinfectada(){
 conversacionPuertaDesinfectada = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
 
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Creo que acabo de desinfectar la estacion",1);
+var l: LineaDialogo = new LineaDialogo("Ya etá, me cabo de desinfectar",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);

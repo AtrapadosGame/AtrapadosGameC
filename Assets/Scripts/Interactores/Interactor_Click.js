@@ -13,6 +13,9 @@ var manager : GameObject;
 //Distancia mínima de interacción
 var closeDistance : float = 1.5;
 var texturaEspecial : Texture2D;
+var cursorMode : CursorMode = CursorMode.Auto;
+// cursor hotspot (pixels from top left of image)
+var hotSpot : Vector2 = Vector2.zero;
 
 
 
@@ -32,6 +35,7 @@ function FlagOn(){
 
 function FlagOff(){
 	flag = false;
+	Cursor.SetCursor(null, Vector2.zero, cursorMode);
 }
 
 function OnMouseEnter(){
