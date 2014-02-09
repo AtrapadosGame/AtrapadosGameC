@@ -72,9 +72,9 @@ managerDialogos = GetComponent(ManagerDialogos2);
 lootManager = GetComponent(LootManager2);
 inventario = GetComponent(InventarioManager);
 persistance = GameObject.Find("Persistance").GetComponent(Persistance);
-GameObject.Find("Estacion1").GetComponent(Interactor_Click).FlagOff();
+//GameObject.Find("Estacion1").GetComponent(Interactor_Click).FlagOff();
 GameObject.Find("Estacion2").GetComponent(Interactor_Click).FlagOff();
-GameObject.Find("Estacion3").GetComponent(Interactor_Click).FlagOff();
+//GameObject.Find("Estacion3").GetComponent(Interactor_Click).FlagOff();
 
 puzzle = GetComponent(Puzzle);
 puzzleAlambre = GetComponent(PuzzleAlambre);
@@ -246,7 +246,8 @@ function EventTrigger(objName : String){
 			GameObject.Find("F7").renderer.enabled = false;
 			GameObject.Find("F7").collider.enabled = false;
 			if(f1solucionado && f2solucionado){
-			Application.Quit();
+			yield WaitForSeconds(4);
+			Application.LoadLevel(siguienteNivel);
 			}else{
 			f7solucionado=true;
 			}
@@ -328,7 +329,8 @@ function EventSwitch(comando : String){
 			GameObject.Find("F1").renderer.enabled = false;
 			GameObject.Find("F1").collider.enabled = false;
 			if(f2solucionado && f7solucionado){
-			Application.Quit();
+			yield WaitForSeconds(4);
+			Application.LoadLevel(siguienteNivel);
 			}else{
 			f1solucionado=true;
 			}			
@@ -359,7 +361,8 @@ function EventSwitch(comando : String){
 			GameObject.Find("F2").renderer.enabled = false;
 			GameObject.Find("F2").collider.enabled = false;
 			if(f1solucionado && f7solucionado){
-			Application.Quit();
+			yield WaitForSeconds(4);
+			Application.LoadLevel(siguienteNivel);
 			}else{
 			f2solucionado=true;
 			}	

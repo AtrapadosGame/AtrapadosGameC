@@ -806,7 +806,7 @@ conversacionF3 = new ArbolConversacion(texturaCristina,texturaF3,texturaCristina
 * 
 */
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Lo siento, pero no puedo dejarte usar esta estación",2);
+var l: LineaDialogo = new LineaDialogo("Es mejor no usar esta estación",1);
 dialogos.Push(l);
 l = new LineaDialogo("¿Algún problema?",1);
 dialogos.Push(l);
@@ -1307,7 +1307,7 @@ function inicializarPuertaDesinfectada(){
 conversacionPuertaDesinfectada = new ArbolConversacion(texturaCristina,texturaGabriela,texturaCristinaSombreada,texturaGabrielaSombreada);
 
 var dialogos : Array = new Array();
-var l: LineaDialogo = new LineaDialogo("Ya etá, me cabo de desinfectar",1);
+var l: LineaDialogo = new LineaDialogo("Ya está, me acabo de desinfectar",1);
 dialogos.Push(l);
 
 var nodoRaiz:NodoDialogo = new NodoDialogo(dialogos);
